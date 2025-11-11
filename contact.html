@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sept.3 - Contact</title>
+  <link rel="stylesheet" href="styles/globals.css">
+</head>
+<body>
+  <div class="layout-container">
+    <div class="layout-wrapper">
+      <!-- Header Desktop -->
+      <div class="header-desktop">
+        <div class="header-desktop-inner">
+          <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+            <p class="nav-item-text">HOME</p>
+          </button>
+          <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+            <p class="nav-item-text">ABOUT</p>
+          </button>
+          <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+            <p class="nav-item-text">COMPANY INFO</p>
+          </button>
+          <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
+            <p class="nav-item-text">PHILOSOPHY</p>
+          </button>
+          <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+            <p class="nav-item-text">WORKS</p>
+          </button>
+          <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+            <p class="nav-item-text">CONTACT</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Header Mobile/Tablet -->
+      <div class="header-mobile" id="headerMobile">
+        <div class="header-mobile-inner">
+          <div class="header-mobile-content">
+            <button onclick="toggleMobileMenu()" class="header-mobile-button">
+              <div class="hamburger-icon" id="hamburgerIcon">
+                <div class="hamburger-svg-wrapper">
+                  <svg class="hamburger-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 60 21">
+                    <g id="Group 7">
+                      <path d="M0 0.5H60" id="Vector 1" stroke="var(--stroke-0, black)" />
+                      <path d="M10 10.5H60" id="Vector 2" stroke="var(--stroke-0, black)" />
+                      <path d="M20 20.5H60" id="Vector 3" stroke="var(--stroke-0, black)" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="close-icon" id="closeIcon" style="display: none;">
+                <div class="close-svg-wrapper">
+                  <svg class="close-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 51 26">
+                    <g id="Group 9">
+                      <path d="M0.396484 0.544922L50.6035 25.4551" id="Vector 4" stroke="var(--stroke-0, black)" />
+                      <path d="M0.396484 25.4551L50.6035 0.544922" id="Vector 5" stroke="var(--stroke-0, black)" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu" style="display: none;">
+        <div class="mobile-menu-header">
+          <div class="mobile-menu-header-inner">
+            <div class="mobile-menu-header-content">
+              <button onclick="toggleMobileMenu()" class="mobile-menu-close-button">
+                <div class="close-icon">
+                  <div class="close-svg-wrapper">
+                    <svg class="close-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 51 26">
+                      <g id="Group 9">
+                        <path d="M0.396484 0.544922L50.6035 25.4551" id="Vector 4" stroke="var(--stroke-0, black)" />
+                        <path d="M0.396484 25.4551L50.6035 0.544922" id="Vector 5" stroke="var(--stroke-0, black)" />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mobile-menu-nav">
+          <button onclick="navigateToAndClose('index.html', 'home_frame')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">HOME</p>
+          </button>
+          <button onclick="navigateToAndClose('index.html', 'text2')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">ABOUT</p>
+          </button>
+          <button onclick="navigateToAndClose('index.html', 'text4')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">COMPANY INFO</p>
+          </button>
+          <button onclick="navigateToAndClose('works.html', 'philosophy_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">PHILOSOPHY</p>
+          </button>
+          <button onclick="navigateToAndClose('works.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">WORKS</p>
+          </button>
+          <button onclick="navigateToAndClose('contact.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">CONTACT</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="contact-main">
+        <div class="contact-inner">
+          <form id="contactForm" class="contact-form">
+            <div class="contact-form-wrapper">
+              <div class="contact-form-content">
+                <!-- Title -->
+                <div id="main_frame3-1_text" class="contact-title-section">
+                  <p class="contact-title">
+                    CONTACT
+                  </p>
+                </div>
+
+                <!-- Form Content -->
+                <div class="contact-fields-wrapper">
+                  <div class="contact-fields-inner">
+                    <!-- Form Header -->
+                    <div class="form-field">
+                      <p class="form-label" style="font-size: 16px;">お問い合わせ内容を入力</p>
+                      <p class="form-label" style="font-size: 16px;">※は必須項目です</p>
+                    </div>
+
+                    <!-- Inquiry Type -->
+                    <div class="form-field radio-group">
+                      <p class="form-label">お問い合わせの内容※</p>
+                      <div class="inquiry-types">
+                        <button type="button" onclick="selectInquiryType('consultation')" class="radio-button" id="radioConsultation">
+                          <div class="radio-icon">
+                            <svg class="radio-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
+                              <circle cx="9" cy="9" fill="#3f3d3d" r="9" />
+                              <circle cx="9" cy="9" fill="white" r="4" />
+                            </svg>
+                          </div>
+                          <div class="radio-label">
+                            <p>新規お取引のご相談</p>
+                          </div>
+                        </button>
+                        <button type="button" onclick="selectInquiryType('other')" class="radio-button" id="radioOther">
+                          <div class="radio-icon">
+                            <svg class="radio-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
+                              <circle cx="9" cy="9" fill="#D9D9D9" r="9" />
+                            </svg>
+                          </div>
+                          <div class="radio-label">
+                            <p>その他</p>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Privacy Notice -->
+                    <div class="form-field">
+                      <p class="form-label">入力いただいた内容は、お問い合わせへの回答のみに使用いたします。</p>
+                    </div>
+
+                    <!-- Company Name -->
+                    <div class="form-field">
+                      <p class="form-label">会社名</p>
+                      <div style="position: relative; width: 100%;">
+                        <input
+                          type="text"
+                          name="company"
+                          placeholder="会社名"
+                          class="form-input"
+                          style="height: 50px;"
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Name -->
+                    <div class="form-field">
+                      <p class="form-label">お名前※</p>
+                      <div class="form-row">
+                        <input
+                          type="text"
+                          name="lastName"
+                          required
+                          placeholder="姓"
+                          class="form-input"
+                        >
+                        <input
+                          type="text"
+                          name="firstName"
+                          required
+                          placeholder="名"
+                          class="form-input"
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Furigana -->
+                    <div class="form-field">
+                      <p class="form-label">フリガナ※</p>
+                      <div class="form-row">
+                        <input
+                          type="text"
+                          name="lastNameKana"
+                          required
+                          placeholder="セイ"
+                          class="form-input"
+                        >
+                        <input
+                          type="text"
+                          name="firstNameKana"
+                          required
+                          placeholder="メイ"
+                          class="form-input"
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-field">
+                      <p class="form-label">電話番号※</p>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        class="form-input"
+                      >
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-field">
+                      <p class="form-label">メールアドレス※</p>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        class="form-input"
+                      >
+                    </div>
+
+                    <!-- Content -->
+                    <div class="form-field">
+                      <p class="form-label">内容※</p>
+                      <textarea
+                        name="content"
+                        required
+                        rows="10"
+                        class="form-textarea"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button type="submit" class="submit-button">
+                    <p class="submit-text">送信</p>
+                    <p class="submit-arrow">〉</p>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer_frame" class="footer-container">
+        <div class="footer-inner">
+          <div class="footer-content">
+            <!-- Footer Navigation -->
+            <div class="footer-nav">
+              <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+                <p class="nav-item-text mobile">HOME</p>
+              </button>
+              <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+                <p class="nav-item-text mobile">ABOUT</p>
+              </button>
+              <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+                <p class="nav-item-text mobile">COMPANY INFO</p>
+              </button>
+              <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
+                <p class="nav-item-text mobile">PHILOSOPHY</p>
+              </button>
+              <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+                <p class="nav-item-text mobile">WORKS</p>
+              </button>
+              <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+                <p class="nav-item-text mobile">CONTACT</p>
+              </button>
+            </div>
+
+            <!-- Footer Text -->
+            <div class="footer-text-container">
+              <!-- Desktop/Tablet -->
+              <div class="footer-text footer-text-desktop">
+                <p class="mb-0">〒530-0012  大阪市北区芝田1-12-7 大栄ビル新館N1003 </p>
+                <p class="mb-0">TEL.06-6376-0903  FAX.06-6376-0913</p>
+                <p>Copyright sept.3 Inc. All Rights Reserved.</p>
+              </div>
+
+              <!-- Mobile -->
+              <div class="footer-text footer-text-mobile">
+                <p class="mb-0">〒530-0012  大阪市北区芝田1-12-7</p>
+                <p class="mb-0">大栄ビル新館N1003 </p>
+                <p class="mb-0">TEL.06-6376-0903  FAX.06-6376-0913</p>
+                <p>Copyright sept.3 Inc. All Rights Reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="contact-form.js" defer></script>
+</body>
+</html>

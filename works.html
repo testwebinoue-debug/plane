@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sept.3 - Works</title>
+  <link rel="stylesheet" href="styles/globals.css">
+</head>
+<body>
+  <div class="layout-container">
+    <div class="layout-wrapper">
+      <!-- Header Desktop -->
+      <div class="header-desktop">
+        <div class="header-desktop-inner">
+          <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+            <p class="nav-item-text">HOME</p>
+          </button>
+          <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+            <p class="nav-item-text">ABOUT</p>
+          </button>
+          <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+            <p class="nav-item-text">COMPANY INFO</p>
+          </button>
+          <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
+            <p class="nav-item-text">PHILOSOPHY</p>
+          </button>
+          <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+            <p class="nav-item-text">WORKS</p>
+          </button>
+          <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+            <p class="nav-item-text">CONTACT</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Header Mobile/Tablet -->
+      <div class="header-mobile" id="headerMobile">
+        <div class="header-mobile-inner">
+          <div class="header-mobile-content">
+            <button onclick="toggleMobileMenu()" class="header-mobile-button">
+              <div class="hamburger-icon" id="hamburgerIcon">
+                <div class="hamburger-svg-wrapper">
+                  <svg class="hamburger-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 60 21">
+                    <g id="Group 7">
+                      <path d="M0 0.5H60" id="Vector 1" stroke="var(--stroke-0, black)" />
+                      <path d="M10 10.5H60" id="Vector 2" stroke="var(--stroke-0, black)" />
+                      <path d="M20 20.5H60" id="Vector 3" stroke="var(--stroke-0, black)" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="close-icon" id="closeIcon" style="display: none;">
+                <div class="close-svg-wrapper">
+                  <svg class="close-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 51 26">
+                    <g id="Group 9">
+                      <path d="M0.396484 0.544922L50.6035 25.4551" id="Vector 4" stroke="var(--stroke-0, black)" />
+                      <path d="M0.396484 25.4551L50.6035 0.544922" id="Vector 5" stroke="var(--stroke-0, black)" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobile-menu" id="mobileMenu" style="display: none;">
+        <div class="mobile-menu-header">
+          <div class="mobile-menu-header-inner">
+            <div class="mobile-menu-header-content">
+              <button onclick="toggleMobileMenu()" class="mobile-menu-close-button">
+                <div class="close-icon">
+                  <div class="close-svg-wrapper">
+                    <svg class="close-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 51 26">
+                      <g id="Group 9">
+                        <path d="M0.396484 0.544922L50.6035 25.4551" id="Vector 4" stroke="var(--stroke-0, black)" />
+                        <path d="M0.396484 25.4551L50.6035 0.544922" id="Vector 5" stroke="var(--stroke-0, black)" />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mobile-menu-nav">
+          <button onclick="navigateToAndClose('index.html', 'home_frame')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">HOME</p>
+          </button>
+          <button onclick="navigateToAndClose('index.html', 'text2')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">ABOUT</p>
+          </button>
+          <button onclick="navigateToAndClose('index.html', 'text4')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">COMPANY INFO</p>
+          </button>
+          <button onclick="navigateToAndClose('works.html', 'philosophy_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">PHILOSOPHY</p>
+          </button>
+          <button onclick="navigateToAndClose('works.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">WORKS</p>
+          </button>
+          <button onclick="navigateToAndClose('contact.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+            <p class="nav-item-text">CONTACT</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="works-main">
+        <div class="works-inner">
+          <!-- Philosophy Section -->
+          <div id="philosophy_text" class="philosophy-section">
+            <!-- Background Image -->
+            <div class="philosophy-bg">
+              <div class="philosophy-bg-inner">
+                <img alt="" class="hero-bg-img" src="images/sept3-typography-works.png">
+              </div>
+            </div>
+            
+            <!-- Title -->
+            <div class="philosophy-title-wrapper">
+              <div class="philosophy-title-inner">
+                <p class="philosophy-title">
+                  PHILOSOPHY
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Introduction Section -->
+          <div class="introduction-section">
+            <div class="introduction-content">
+              <!-- Desktop/Tablet -->
+              <div class="introduction-text-desktop">
+                <p class="mb-0">sept.3 には、個性を尊重し、心がつながる仕組みがあります。</p>
+                <p class="mb-0">私たちは自分たちの仕事を取り巻くさまざまな環境を見つめ直し、</p>
+                <p class="mb-0">暮らしや文化、そして企業を支えているのは「人」であり、</p>
+                <p class="mb-0">その原動力は「心のエネルギー」であると考えています。</p>
+                <p class="mb-0">sept.3 は、それぞれが同じ軌道・同じリズムで回り続けるプラネッツのような存在です。</p>
+                <p>バランスを保ちながら輝き続け、その中心には常に「心のエネルギー」があります。</p>
+              </div>
+
+              <!-- Mobile -->
+              <div class="introduction-text-mobile">
+                <p class="mb-0">sept.3 には、個性を尊重し、</p>
+                <p class="mb-0">心がつながる仕組みがあります。</p>
+                <p class="mb-0">私たちは自分たちの仕事を取り巻く</p>
+                <p class="mb-0">さまざまな環境を見つめ直し、</p>
+                <p class="mb-0">暮らしや文化、そして企業を支えているのは</p>
+                <p class="mb-0">「人」であり、</p>
+                <p class="mb-0">その原動力は「心のエネルギー」であると</p>
+                <p class="mb-0">考えています。</p>
+                <p class="mb-0">sept.3 は、それぞれが同じ軌道・同じリズムで</p>
+                <p class="mb-0">回り続けるプラネッツのような存在です。</p>
+                <p class="mb-0">バランスを保ちながら輝き続け、その中心には</p>
+                <p>常に「心のエネルギー」があります。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Three Hearts Section -->
+          <div class="three-hearts-section">
+            <!-- 心を慥かめる -->
+            <div class="heart-item first">
+              <div class="heart-image-wrapper">
+                <img alt="" class="heart-image" src="images/sept3-response.png">
+              </div>
+              <div class="heart-text-wrapper">
+                <div class="heart-text-grid">
+                  <div class="heart-text-description">
+                    <div class="heart-text-description-content">
+                      <p class="mb-0">動揺を導くデザインを</p>
+                      <p>摸索することからはじめます</p>
+                    </div>
+                  </div>
+                  <div class="heart-text-title">
+                    <p class="heart-text-title-content">心を慥かめる</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 心を掻き乱す -->
+            <div class="heart-item second">
+              <div class="heart-image-wrapper second-third">
+                <img alt="" class="heart-image" src="images/sept3-feeling.png">
+              </div>
+              <div class="heart-text-wrapper">
+                <div class="heart-text-grid">
+                  <div class="heart-text-description">
+                    <div class="heart-text-description-content">
+                      <p class="mb-0">共鳴する周波数を</p>
+                      <p>見つけだすための戦略を探ります</p>
+                    </div>
+                  </div>
+                  <div class="heart-text-title">
+                    <p class="heart-text-title-content">心を掻き乱す</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 心を捉える -->
+            <div class="heart-item third">
+              <div class="heart-image-wrapper third-special">
+                <img alt="" class="heart-image" src="images/sept3-thoughts.png">
+              </div>
+              <div class="heart-text-wrapper">
+                <div class="heart-text-grid">
+                  <div class="heart-text-description">
+                    <div class="heart-text-description-content">
+                      <p class="mb-0">欲求を充たすをデザインする</p>
+                      <p>その表現力を追求します</p>
+                    </div>
+                  </div>
+                  <div class="heart-text-title">
+                    <p class="heart-text-title-content">心を捉える</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Face Section -->
+          <div class="face-section">
+            <div class="face-flip-container">
+              <div class="face-bg">
+                <div class="face-image-wrapper">
+                  <div class="face-image-inner">
+                    <div class="face-image-flip">
+                      <div class="face-image-content">
+                        <img alt="" class="face-image" src="images/sept3-face.png">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Works Section -->
+          <div id="main_frame3-1_text" class="works-section">
+            <!-- Title -->
+            <div class="works-title-wrapper">
+              <p class="works-title">
+                WORKS
+              </p>
+            </div>
+
+            <!-- Description -->
+            <div class="works-description">
+              <!-- Desktop/Tablet -->
+              <div class="works-text-desktop">
+                <p class="mb-0">出会った瞬間に心奪われる、音楽、風景、笑顔、デザイン。</p>
+                <p>デザインのチカラで心を動かす、感極まるデザインを追求します。</p>
+              </div>
+
+              <!-- Mobile -->
+              <div class="works-text-mobile">
+                <p class="mb-0">出会った瞬間に心奪われる、音楽、風景、</p>
+                <p class="mb-0">笑顔、デザイン。</p>
+                <p class="mb-0">デザインのチカラで心を動かす、</p>
+                <p>感極まるデザインを追求します。</p>
+              </div>
+            </div>
+
+            <!-- Services List -->
+            <div class="works-services">
+              <!-- Labels -->
+              <div class="works-services-labels" style="font-variation-settings: 'CTGR' 0, 'wdth' 100, 'wght' 400;">
+                <p class="mb-0" style="white-space: pre-wrap;">ADVERTISING   </p>
+                <p class="mb-0">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0" style="white-space: pre-wrap;">BROCHURES    </p>
+                <p class="mb-0">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0">CATALOGS</p>
+                <p class="mb-0">&nbsp;</p>
+                <p class="mb-0 md-hidden">&nbsp;</p>
+                <p class="mb-0" style="white-space: pre-wrap;">CD JACKET  </p>
+                <p class="mb-0">&nbsp;</p>
+                <p class="mb-0" style="white-space: pre-wrap;">PACKAGING  </p>
+                <p class="mb-0">&nbsp;</p>
+                <p class="mb-0">MENU</p>
+                <p class="mb-0">&nbsp;</p>
+                <p style="white-space: pre-wrap;">WEB  DESIGN</p>
+              </div>
+
+              <!-- Values -->
+              <div class="works-services-values">
+                <!-- Desktop -->
+                <div class="works-values-desktop">
+                  <p class="mb-0">駅貼りポスター・車内吊りポスター・チラシ・サイネージ・新聞・雑誌</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">旅行パンフレット・情報誌・ガイドマップ・会社案内・学校案内・自治体広報紙・インバウンド向けツール（翻訳業務）</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">展示会作品集・総合カタログ・販促ツール</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">音楽CDアルバム・ジャケット</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">化粧品・サプリメント</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">飲食店・美容理容・雑貨</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p>旅行・イベント告知　etc.</p>
+                </div>
+
+                <!-- Tablet -->
+                <div class="works-values-tablet">
+                  <p class="mb-0">駅貼りポスター・車内吊りポスター・チラシ</p>
+                  <p class="mb-0">サイネージ・新聞・雑誌</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">旅行パンフレット・情報誌・ガイドマップ</p>
+                  <p class="mb-0">会社案内・学校案内・自治体広報紙</p>
+                  <p class="mb-0">インバウンド向けツール（翻訳業務）</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">展示会作品集・総合カタログ・販促ツール</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">音楽CDアルバム・ジャケット</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">化粧品・サプリメント</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">飲食店・美容理容・雑貨</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p>旅行・イベント告知　etc.</p>
+                </div>
+
+                <!-- Mobile -->
+                <div class="works-values-mobile">
+                  <p class="mb-0">駅貼りポスター・</p>
+                  <p class="mb-0">車内吊りポスター・チラシ</p>
+                  <p class="mb-0">サイネージ・新聞・雑誌</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">旅行パンフレット・情報誌・</p>
+                  <p class="mb-0">ガイドマップ</p>
+                  <p class="mb-0">会社案内・学校案内・</p>
+                  <p class="mb-0">自治体広報紙</p>
+                  <p class="mb-0">インバウン向けツール</p>
+                  <p class="mb-0">（翻訳業務）</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">展示会作品集・</p>
+                  <p class="mb-0">総合カタログ・販促ツール</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">音楽CDアルバム・ジャケット</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">化粧品・サプリメント</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p class="mb-0">飲食店・美容理容・雑貨</p>
+                  <p class="mb-0">&nbsp;</p>
+                  <p>旅行・イベント告知　etc.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer_frame" class="footer-container">
+        <div class="footer-inner">
+          <div class="footer-content">
+            <!-- Footer Navigation -->
+            <div class="footer-nav">
+              <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+                <p class="nav-item-text mobile">HOME</p>
+              </button>
+              <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+                <p class="nav-item-text mobile">ABOUT</p>
+              </button>
+              <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+                <p class="nav-item-text mobile">COMPANY INFO</p>
+              </button>
+              <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
+                <p class="nav-item-text mobile">PHILOSOPHY</p>
+              </button>
+              <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+                <p class="nav-item-text mobile">WORKS</p>
+              </button>
+              <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+                <p class="nav-item-text mobile">CONTACT</p>
+              </button>
+            </div>
+
+            <!-- Footer Text -->
+            <div class="footer-text-container">
+              <!-- Desktop/Tablet -->
+              <div class="footer-text footer-text-desktop">
+                <p class="mb-0">〒530-0012  大阪市北区芝田1-12-7 大栄ビル新館N1003 </p>
+                <p class="mb-0">TEL.06-6376-0903  FAX.06-6376-0913</p>
+                <p>Copyright sept.3 Inc. All Rights Reserved.</p>
+              </div>
+
+              <!-- Mobile -->
+              <div class="footer-text footer-text-mobile">
+                <p class="mb-0">〒530-0012  大阪市北区芝田1-12-7</p>
+                <p class="mb-0">大栄ビル新館N1003 </p>
+                <p class="mb-0">TEL.06-6376-0903  FAX.06-6376-0913</p>
+                <p>Copyright sept.3 Inc. All Rights Reserved.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
