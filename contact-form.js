@@ -1,11 +1,44 @@
 /**
- * お問い合わせフォーム用JavaScript（セキュリティ最強化版）
+ * お問い合わせフォーム用JavaScript（エンタープライズレベル）
  */
 
 // グローバル変数
 let selectedInquiryType = 'consultation';
 let csrfToken = null;
+let doubleSubmitToken = null;
 let formTimestamp = null;
+let recaptchaSiteKey = ''; // config.phpのRECAPTCHA_SITE_KEYと同じ値を設定
+
+/**
+ * reCAPTCHA v3の読み込み
+ */
+function loadRecaptcha() {
+    if (!recaptchaSiteKey) return;
+    
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+/**
+ * reCAPTCHAトークンの取得
+ */
+async function getRecaptchaToken() {
+    if (!recaptchaSiteKey || !window.grecaptcha) {
+        return null;
+    }
+    
+    try {
+        await window.grecaptcha.ready();
+        const token = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'submit' });
+        return token;
+    } catch (error) {
+        console.error('reCAPTCHA error:', error);
+        return null;
+    }
+}
 
 /**
  * CSRFトークンの取得
@@ -15,19 +48,19 @@ async function fetchCSRFToken() {
         const response = await fetch('/get-csrf-token.php', {
             method: 'GET',
             credentials: 'include',
-            headers: {
-                'Accept': 'application/json'
-            }
+            headers: { 'Accept': 'application/json' }
         });
-        
+
         if (!response.ok) {
             console.error('CSRF token fetch failed:', response.status);
             return false;
         }
-        
+
         const data = await response.json();
         if (data.success && data.csrf_token) {
             csrfToken = data.csrf_token;
+            // ここで二重送信トークンを取得
+            doubleSubmitToken = data.double_submit_token || null;
             formTimestamp = data.timestamp;
             return true;
         } else {
@@ -51,19 +84,22 @@ function selectInquiryType(type) {
     
     if (!consultationButton || !otherButton) return;
     
+    const consultationSvg = consultationButton.querySelector('.radio-svg');
+    const otherSvg = otherButton.querySelector('.radio-svg');
+    
     if (type === 'consultation') {
-        consultationButton.querySelector('.radio-svg').innerHTML = `
+        consultationSvg.innerHTML = `
             <circle cx="9" cy="9" fill="#3f3d3d" r="9" />
             <circle cx="9" cy="9" fill="white" r="4" />
         `;
-        otherButton.querySelector('.radio-svg').innerHTML = `
+        otherSvg.innerHTML = `
             <circle cx="9" cy="9" fill="#D9D9D9" r="9" />
         `;
     } else {
-        consultationButton.querySelector('.radio-svg').innerHTML = `
+        consultationSvg.innerHTML = `
             <circle cx="9" cy="9" fill="#D9D9D9" r="9" />
         `;
-        otherButton.querySelector('.radio-svg').innerHTML = `
+        otherSvg.innerHTML = `
             <circle cx="9" cy="9" fill="#3f3d3d" r="9" />
             <circle cx="9" cy="9" fill="white" r="4" />
         `;
@@ -118,7 +154,10 @@ function validateForm(formData) {
         const phoneRegex = /^0\d{9,10}$/;
         const phoneClean = formData.phone.replace(/[-\s]/g, '');
         if (!phoneRegex.test(phoneClean)) {
-            errors.push('電話番号の形式が正しくありません（例: 06-1234-5678 または 09012345678）');
+            errors.push('電話番号の形式が正しくありません（例: 06-1234-5678）');
+        }
+        if (phoneClean.length > 15) {
+            errors.push('電話番号が長すぎます');
         }
     }
     
@@ -130,8 +169,16 @@ function validateForm(formData) {
         if (!emailRegex.test(formData.email)) {
             errors.push('メールアドレスの形式が正しくありません');
         }
+        if (formData.email.length > 254) {
+            errors.push('メールアドレスが長すぎます');
+        }
+        
         // 使い捨てメールのチェック
-        const disposableDomains = ['10minutemail.com', 'guerrillamail.com', 'mailinator.com', 'tempmail.com', 'throwaway.email'];
+        const disposableDomains = [
+            '10minutemail.com', 'guerrillamail.com', 'mailinator.com',
+            'tempmail.com', 'throwaway.email', 'temp-mail.org',
+            'yopmail.com', 'sharklasers.com'
+        ];
         const domain = formData.email.split('@')[1]?.toLowerCase();
         if (domain && disposableDomains.includes(domain)) {
             errors.push('使い捨てメールアドレスは使用できません');
@@ -148,10 +195,13 @@ function validateForm(formData) {
     }
     
     // 禁止ワードのチェック
-    const prohibitedWords = ['<script', 'javascript:', 'onclick', 'onerror', '<iframe'];
-    const allText = [formData.company, formData.lastName, formData.firstName, formData.content].join(' ');
+    const prohibitedWords = [
+        '<script', '</script>', 'javascript:', 'onclick', 'onerror',
+        '<iframe', '</iframe>', 'eval(', 'base64_decode', '<embed'
+    ];
+    const allText = [formData.company, formData.lastName, formData.firstName, formData.content].join(' ').toLowerCase();
     for (const word of prohibitedWords) {
-        if (allText.toLowerCase().includes(word.toLowerCase())) {
+        if (allText.includes(word.toLowerCase())) {
             errors.push('不正な文字列が含まれています');
             break;
         }
@@ -188,6 +238,8 @@ function showNotification(message, type = 'success') {
         font-size: 16px;
         font-family: 'Zen Kaku Gothic Antique', sans-serif;
         animation: slideDown 0.3s ease-out;
+        white-space: pre-line;
+        line-height: 1.5;
     `;
     
     // アニメーションのスタイルを追加
@@ -229,17 +281,23 @@ function setLoadingState(isLoading, button) {
         button.disabled = true;
         button.style.opacity = '0.6';
         button.style.cursor = 'not-allowed';
-        button.querySelector('.submit-text').textContent = '送信中...';
+        const submitText = button.querySelector('.submit-text');
+        if (submitText) {
+            submitText.textContent = '送信中...';
+        }
     } else {
         button.disabled = false;
         button.style.opacity = '1';
         button.style.cursor = 'pointer';
-        button.querySelector('.submit-text').textContent = '送信';
+        const submitText = button.querySelector('.submit-text');
+        if (submitText) {
+            submitText.textContent = '送信';
+        }
     }
 }
 
 /**
- * フォーム送信処理（強化版）
+ * フォーム送信処理（エンタープライズレベル）
  */
 async function handleFormSubmit(e) {
     e.preventDefault();
@@ -249,7 +307,6 @@ async function handleFormSubmit(e) {
     
     // CSRFトークンのチェック
     if (!csrfToken || !formTimestamp) {
-        // トークンがない場合は再取得を試みる
         const tokenObtained = await fetchCSRFToken();
         if (!tokenObtained) {
             showNotification('セキュリティトークンの取得に失敗しました。ページを再読み込みしてください。', 'error');
@@ -257,27 +314,31 @@ async function handleFormSubmit(e) {
         }
     }
     
-    // フォームデータの取得（XSS対策のためエスケープ）
-    const escapeHtml = (str) => {
-        const div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    };
-    
+    // フォームデータの取得
     const formData = {
         csrf_token: csrfToken,
         timestamp: formTimestamp,
         inquiryType: selectedInquiryType,
-        company: escapeHtml(form.company.value.trim()),
-        lastName: escapeHtml(form.lastName.value.trim()),
-        firstName: escapeHtml(form.firstName.value.trim()),
-        lastNameKana: escapeHtml(form.lastNameKana.value.trim()),
-        firstNameKana: escapeHtml(form.firstNameKana.value.trim()),
+        company: form.company.value.trim(),
+        lastName: form.lastName.value.trim(),
+        firstName: form.firstName.value.trim(),
+        lastNameKana: form.lastNameKana.value.trim(),
+        firstNameKana: form.firstNameKana.value.trim(),
         phone: form.phone.value.trim().replace(/[-\s]/g, ''),
         email: form.email.value.trim().toLowerCase(),
-        content: escapeHtml(form.content.value.trim()),
-        website: '' // ハニーポット（ボットが埋める隠しフィールド）
+        content: form.content.value.trim(),
+        website: '' // ハニーポット
     };
+    
+    // 二重送信トークンを付与
+    if (doubleSubmitToken) {
+        formData.double_submit_token = doubleSubmitToken;
+    }
+    
+    // 二重送信防止トークン
+    if (doubleSubmitToken) {
+        formData.double_submit_token = doubleSubmitToken;
+    }
     
     // バリデーション
     const errors = validateForm({
@@ -300,8 +361,16 @@ async function handleFormSubmit(e) {
     setLoadingState(true, submitButton);
     
     try {
+        // reCAPTCHAトークンの取得
+        if (recaptchaSiteKey) {
+            const recaptchaToken = await getRecaptchaToken();
+            if (recaptchaToken) {
+                formData.recaptcha_token = recaptchaToken;
+            }
+        }
+        
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30秒タイムアウト
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
         
         const response = await fetch('/contact-handler.php', {
             method: 'POST',
@@ -329,7 +398,13 @@ async function handleFormSubmit(e) {
             // スクロールをトップに
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-            showNotification(data.message || '送信に失敗しました', 'error');
+            if (response.status === 429) {
+                showNotification('送信回数の上限に達しました。1時間後に再度お試しください。', 'error');
+            } else if (response.status === 403) {
+                showNotification('アクセスが拒否されました。', 'error');
+            } else {
+                showNotification(data.message || '送信に失敗しました', 'error');
+            }
         }
     } catch (error) {
         if (error.name === 'AbortError') {
@@ -347,7 +422,10 @@ async function handleFormSubmit(e) {
  * 初期化処理
  */
 document.addEventListener('DOMContentLoaded', async function() {
-    // CSRFトークンの取得（バックグラウンドで実行、エラーは表示しない）
+    // reCAPTCHAの読み込み
+    loadRecaptcha();
+    
+    // CSRFトークンの取得
     await fetchCSRFToken();
     
     // フォームの送信イベント
@@ -370,6 +448,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 /**
- * グローバルスコープに関数を公開（HTMLから呼び出すため）
+ * グローバルスコープに関数を公開
  */
 window.selectInquiryType = selectInquiryType;

@@ -1,24 +1,31 @@
 <?php
 /**
- * お問い合わせフォーム処理（お名前.com完全対応版）
+ * お問い合わせフォーム処理（エンタープライズレベル・お名前.com SD対応版）
  */
 
- // セッション保存先の設定（お名前.com対応）
-$session_path = __DIR__ . '/tmp/sessions';
-if (!is_dir($session_path)) {
-    @mkdir($session_path, 0700, true);
-}
-if (is_dir($session_path) && is_writable($session_path)) {
-    @ini_set('session.save_path', $session_path);
-}
-
-// エラー表示を完全にオフ
+// エラー表示を完全にオフ（本番環境）
 error_reporting(0);
 @ini_set('display_errors', '0');
 @ini_set('display_startup_errors', '0');
 
-// セッション保存先の設定（お名前.com対応）
-$session_path = __DIR__ . '/tmp/sessions';
+// 設定ファイルの読み込み
+if (!file_exists(__DIR__ . '/config.php')) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Configuration error']);
+    exit;
+}
+require_once __DIR__ . '/config.php';
+
+// セキュリティ関数の読み込み
+if (!file_exists(__DIR__ . '/includes/security-functions.php')) {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Security library not found']);
+    exit;
+}
+require_once __DIR__ . '/includes/security-functions.php';
+
+// セッション保存先の設定
+$session_path = defined('SESSION_SAVE_PATH') ? SESSION_SAVE_PATH : __DIR__ . '/tmp/sessions';
 if (!is_dir($session_path)) {
     @mkdir($session_path, 0700, true);
 }
@@ -32,7 +39,10 @@ if (is_dir($session_path) && is_writable($session_path)) {
 @ini_set('session.use_only_cookies', '1');
 
 // HTTPS使用時のみ有効化
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+if (
+    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+) {
     @ini_set('session.cookie_secure', '1');
 }
 
@@ -49,7 +59,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // セッション開始失敗時の対応
 if (session_status() !== PHP_SESSION_ACTIVE) {
     http_response_code(500);
-    echo json_encode(array('success' => false, 'message' => 'Session initialization failed'));
+    echo json_encode(['success' => false, 'message' => 'Session error']);
     exit;
 }
 
@@ -60,14 +70,21 @@ if (!isset($_SESSION['initiated'])) {
 }
 
 // セキュリティヘッダーの設定
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-header('Referrer-Policy: strict-origin-when-cross-origin');
+if (defined('SECURITY_HEADERS') && is_array(SECURITY_HEADERS)) {
+    foreach (SECURITY_HEADERS as $header => $value) {
+        header($header . ': ' . $value);
+    }
+}
+
 header('Content-Type: application/json; charset=utf-8');
 
 // CORS設定（同一オリジンのみ許可）
-if (isset($_SERVER['HTTP_ORIGIN'])) {
+$allowedOrigins = [
+    'https://' . $_SERVER['HTTP_HOST'],
+    'http://' . $_SERVER['HTTP_HOST']
+];
+
+if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowedOrigins)) {
     header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
     header('Access-Control-Allow-Credentials: true');
 }
@@ -77,225 +94,19 @@ header('Access-Control-Allow-Headers: Content-Type');
 // POSTリクエストのみ許可
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(array('success' => false, 'message' => 'Method not allowed'));
-    exit;
-}
-
-// 設定ファイルの読み込み
-if (file_exists(__DIR__ . '/config.php')) {
-    require_once __DIR__ . '/config.php';
-} else {
-    http_response_code(500);
-    echo json_encode(array('success' => false, 'message' => 'Configuration file not found'));
-    exit;
-}
-
-// POSTリクエストのみ許可
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Method not allowed']);
     exit;
 }
 
-// 設定ファイルの読み込み
-require_once __DIR__ . '/config.php';
-
-/**
- * IPアドレスの取得（プロキシ対応）
- */
-function getRealIP() {
-    $ip = '';
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
-    } else {
-        $ip = $_SERVER['REMOTE_ADDR'];
+// IP制限チェック
+if (defined('ENABLE_IP_RESTRICTION') && ENABLE_IP_RESTRICTION) {
+    if (!checkIPRestriction()) {
+        logSecurity('IP restriction: Access denied');
+        logAudit('ACCESS_DENIED_IP', ['reason' => 'IP restriction']);
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Access denied']);
+        exit;
     }
-    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : '0.0.0.0';
-}
-
-/**
- * 入力値のサニタイズ（強化版）
- */
-function sanitizeInput($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-    // 制御文字の除去
-    $data = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $data);
-    return $data;
-}
-
-/**
- * SQLインジェクション対策（将来のDB対応）
- */
-function sanitizeSQL($data) {
-    $data = str_replace(['\\', "\0", "\n", "\r", "'", '"', "\x1a"], ['\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'], $data);
-    return $data;
-}
-
-/**
- * メールヘッダーインジェクション対策
- */
-function sanitizeEmail($email) {
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    // 改行文字の除去
-    $email = str_replace(["\r", "\n", "%0a", "%0d"], '', $email);
-    return $email;
-}
-
-/**
- * メールアドレスの検証（強化版）
- */
-function validateEmail($email) {
-    $email = sanitizeEmail($email);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return false;
-    }
-    // 使い捨てメールドメインのブラックリスト（例）
-    $blacklistedDomains = [
-        '10minutemail.com',
-        'guerrillamail.com',
-        'mailinator.com',
-        'tempmail.com',
-        'throwaway.email'
-    ];
-    $domain = substr(strrchr($email, "@"), 1);
-    if (in_array(strtolower($domain), $blacklistedDomains)) {
-        return false;
-    }
-    return $email;
-}
-
-/**
- * 電話番号の検証（日本の形式）
- */
-function validatePhone($phone) {
-    // ハイフンなしの数字のみ許可
-    return preg_match('/^0\d{9,10}$/', str_replace('-', '', $phone));
-}
-
-/**
- * CSRFトークンの検証
- */
-function validateCSRFToken($token) {
-    if (!isset($_SESSION['csrf_token'])) {
-        return false;
-    }
-    return hash_equals($_SESSION['csrf_token'], $token);
-}
-
-/**
- * ハニーポット（ボット対策）のチェック
- */
-function checkHoneypot($data) {
-    // contact-form.jsで追加される隠しフィールド
-    if (isset($data['website']) && !empty($data['website'])) {
-        return false; // ボットの可能性
-    }
-    return true;
-}
-
-/**
- * タイムスタンプチェック（高速送信ボット対策）
- */
-function checkTimestamp($data) {
-    if (!isset($data['timestamp'])) {
-        return false;
-    }
-    
-    $formLoadTime = intval($data['timestamp']);
-    $currentTime = time();
-    $elapsed = $currentTime - $formLoadTime;
-    
-    // 3秒未満で送信された場合はボットの可能性
-    if ($elapsed < 3) {
-        return false;
-    }
-    
-    // 1時間以上経過している場合は無効
-    if ($elapsed > 3600) {
-        return false;
-    }
-    
-    return true;
-}
-
-/**
- * レート制限チェック（強化版）
- */
-function checkRateLimit() {
-    $ip = getRealIP();
-    $key = 'rate_limit_' . hash('sha256', $ip);
-    $limit = 3; // 3回まで
-    $period = 3600; // 1時間
-    
-    $file = __DIR__ . '/tmp/' . $key . '.json';
-    
-    if (!is_dir(__DIR__ . '/tmp')) {
-        mkdir(__DIR__ . '/tmp', 0755, true);
-    }
-    
-    // 古いファイルのクリーンアップ
-    cleanOldFiles(__DIR__ . '/tmp', 86400); // 24時間以上古いファイルを削除
-    
-    if (file_exists($file)) {
-        $data = json_decode(file_get_contents($file), true);
-        if ($data && $data['time'] > time() - $period) {
-            if ($data['count'] >= $limit) {
-                // ログに記録
-                logSecurity('Rate limit exceeded', $ip);
-                return false;
-            }
-            $data['count']++;
-        } else {
-            $data = ['time' => time(), 'count' => 1];
-        }
-    } else {
-        $data = ['time' => time(), 'count' => 1];
-    }
-    
-    file_put_contents($file, json_encode($data), LOCK_EX);
-    return true;
-}
-
-/**
- * 古いファイルの削除
- */
-function cleanOldFiles($dir, $maxAge) {
-    if (!is_dir($dir)) {
-        return;
-    }
-    
-    $now = time();
-    $files = scandir($dir);
-    
-    foreach ($files as $file) {
-        if ($file === '.' || $file === '..') {
-            continue;
-        }
-        
-        $filepath = $dir . '/' . $file;
-        if (is_file($filepath) && ($now - filemtime($filepath)) > $maxAge) {
-            unlink($filepath);
-        }
-    }
-}
-
-/**
- * セキュリティログの記録
- */
-function logSecurity($message, $ip = null) {
-    $logDir = __DIR__ . '/logs';
-    if (!is_dir($logDir)) {
-        mkdir($logDir, 0755, true);
-    }
-    
-    $ip = $ip ?: getRealIP();
-    $logFile = $logDir . '/security_' . date('Y-m') . '.log';
-    $logData = date('Y-m-d H:i:s') . " | " . $ip . " | " . $message . "\n";
-    file_put_contents($logFile, $logData, FILE_APPEND | LOCK_EX);
 }
 
 try {
@@ -311,37 +122,60 @@ try {
     
     if (json_last_error() !== JSON_ERROR_NONE) {
         logSecurity('Invalid JSON: ' . json_last_error_msg());
-        throw new Exception('Invalid JSON data');
+        throw new Exception('Invalid data format');
     }
     
     // CSRFトークンの検証
     if (!isset($data['csrf_token']) || !validateCSRFToken($data['csrf_token'])) {
         logSecurity('CSRF token validation failed');
-        throw new Exception('CSRF token validation failed');
+        logAudit('FORM_SUBMIT_FAILED', ['reason' => 'CSRF validation failed']);
+        throw new Exception('Security validation failed');
+    }
+    
+    // 二重送信防止トークンの検証
+    if (defined('DOUBLE_SUBMIT_PREVENTION') && DOUBLE_SUBMIT_PREVENTION) {
+        if (!isset($data['double_submit_token']) || !validateDoubleSubmitToken($data['double_submit_token'])) {
+            logSecurity('Double submit token validation failed');
+            throw new Exception('この送信は既に処理されているか、無効です。ページを再読み込みしてください。');
+        }
+    }
+    
+    // reCAPTCHA v3の検証
+    if (defined('RECAPTCHA_SECRET_KEY') && !empty(RECAPTCHA_SECRET_KEY)) {
+        if (!isset($data['recaptcha_token']) || !verifyRecaptcha($data['recaptcha_token'])) {
+            logSecurity('reCAPTCHA validation failed');
+            logAudit('FORM_SUBMIT_FAILED', ['reason' => 'reCAPTCHA failed']);
+            throw new Exception('ボット対策の検証に失敗しました。ページを再読み込みしてください。');
+        }
     }
     
     // ハニーポットチェック
     if (!checkHoneypot($data)) {
-        logSecurity('Honeypot triggered - Bot detected');
+        logSecurity('Honeypot triggered');
+        logAudit('FORM_SUBMIT_BLOCKED', ['reason' => 'Honeypot']);
         throw new Exception('Invalid request');
     }
     
     // タイムスタンプチェック
     if (!checkTimestamp($data)) {
         logSecurity('Timestamp check failed');
+        logAudit('FORM_SUBMIT_FAILED', ['reason' => 'Timestamp check']);
         throw new Exception('Invalid request timing');
     }
     
     // レート制限チェック
-    if (!checkRateLimit()) {
+    $emailForRateLimit = isset($data['email']) ? $data['email'] : null;
+    if (!checkRateLimit($emailForRateLimit)) {
         http_response_code(429);
+        logAudit('FORM_SUBMIT_BLOCKED', ['reason' => 'Rate limit']);
         throw new Exception('送信回数の上限に達しました。しばらく時間をおいてから再度お試しください。');
     }
+    
     // 必須項目のチェック
-    $requiredFields = array('inquiryType', 'lastName', 'firstName', 'lastNameKana', 'firstNameKana', 'phone', 'email', 'content');
+    $requiredFields = ['inquiryType', 'lastName', 'firstName', 'lastNameKana', 'firstNameKana', 'phone', 'email', 'content'];
     foreach ($requiredFields as $field) {
         if (!isset($data[$field]) || empty(trim($data[$field]))) {
-            throw new Exception('必須項目が入力されていません');
+            throw new Exception('必須項目が入力されていません: ' . $field);
         }
     }
     
@@ -357,26 +191,32 @@ try {
     $content = sanitizeInput($data['content']);
     
     // 文字数制限チェック
-    if (mb_strlen($lastName, 'UTF-8') > 50 || mb_strlen($firstName, 'UTF-8') > 50) {
-        throw new Exception('お名前が長すぎます');
+    $maxNameLength = defined('MAX_NAME_LENGTH') ? MAX_NAME_LENGTH : 50;
+    $maxCompanyLength = defined('MAX_COMPANY_LENGTH') ? MAX_COMPANY_LENGTH : 100;
+    $maxContentLength = defined('MAX_CONTENT_LENGTH') ? MAX_CONTENT_LENGTH : 5000;
+    
+    if (mb_strlen($lastName, 'UTF-8') > $maxNameLength || mb_strlen($firstName, 'UTF-8') > $maxNameLength) {
+        throw new Exception('お名前が長すぎます（' . $maxNameLength . '文字以内）');
     }
-    if (mb_strlen($company, 'UTF-8') > 100) {
-        throw new Exception('会社名が長すぎます');
+    if (mb_strlen($company, 'UTF-8') > $maxCompanyLength) {
+        throw new Exception('会社名が長すぎます（' . $maxCompanyLength . '文字以内）');
     }
-    if (mb_strlen($content, 'UTF-8') > 5000) {
-        throw new Exception('お問い合わせ内容が長すぎます');
+    if (mb_strlen($content, 'UTF-8') > $maxContentLength) {
+        throw new Exception('お問い合わせ内容が長すぎます（' . $maxContentLength . '文字以内）');
     }
     
     // バリデーション
-    if (!in_array($inquiryType, array('consultation', 'other'), true)) {
+    if (!in_array($inquiryType, ['consultation', 'other'], true)) {
         throw new Exception('お問い合わせの種類が不正です');
     }
     
+    // メールアドレスの検証（MXレコード検証含む）
     $email = validateEmail($email);
     if (!$email) {
-        throw new Exception('メールアドレスの形式が正しくありません');
+        throw new Exception('メールアドレスの形式が正しくないか、存在しないドメインです');
     }
     
+    // 電話番号の検証
     if (!validatePhone($phone)) {
         throw new Exception('電話番号の形式が正しくありません');
     }
@@ -387,19 +227,23 @@ try {
     }
     
     // 禁止ワードチェック
-    $prohibitedWords = array('<script', 'javascript:', 'onclick', 'onerror', '<iframe');
     $allText = $company . $lastName . $firstName . $content;
-    foreach ($prohibitedWords as $word) {
-        if (stripos($allText, $word) !== false) {
-            logSecurity('Prohibited word detected: ' . $word);
-            throw new Exception('不正な文字列が含まれています');
-        }
+    if (containsProhibitedWords($allText)) {
+        logSecurity('Prohibited word detected');
+        logAudit('FORM_SUBMIT_BLOCKED', ['reason' => 'Prohibited word']);
+        throw new Exception('不正な文字列が含まれています');
     }
+    
+    // SQLインジェクション対策（将来のDB対応）
+    $company = sanitizeSQL($company);
+    $lastName = sanitizeSQL($lastName);
+    $firstName = sanitizeSQL($firstName);
+    $content = sanitizeSQL($content);
     
     // お問い合わせ種類の日本語変換
     $inquiryTypeText = $inquiryType === 'consultation' ? '新規お取引のご相談' : 'その他';
     
-    // メール本文の作成
+    // メール本文の作成（管理者宛）
     $mailBody = "【お問い合わせ内容】\n\n";
     $mailBody .= "お問い合わせの種類: " . $inquiryTypeText . "\n";
     if (!empty($company)) {
@@ -413,32 +257,29 @@ try {
     $mailBody .= $content . "\n\n";
     $mailBody .= "---\n";
     $mailBody .= "送信日時: " . date('Y年m月d日 H:i:s') . "\n";
-    $mailBody .= "送信元IP: " . $_SERVER['REMOTE_ADDR'] . "\n";
-    
-    // メールヘッダーの設定（メールヘッダーインジェクション対策）
-    $fromEmail = sanitizeEmail(MAIL_FROM);
-    $replyEmail = sanitizeEmail($email);
-    $adminEmail = sanitizeEmail(ADMIN_EMAIL);
-    
-    $headers = array();
-    $headers[] = 'From: ' . mb_encode_mimeheader('sept.3', 'UTF-8') . ' <' . $fromEmail . '>';
-    $headers[] = 'Reply-To: ' . $replyEmail;
-    $headers[] = 'Content-Type: text/plain; charset=UTF-8';
-    $headers[] = 'X-Mailer: PHP/' . phpversion();
+    $mailBody .= "送信元IP: " . getRealIP() . "\n";
+    if (defined('LOG_USER_AGENT') && LOG_USER_AGENT) {
+        $mailBody .= "User-Agent: " . (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Unknown') . "\n";
+    }
     
     // メール送信（管理者宛）
     $subject = '【sept.3】お問い合わせがありました';
+    $encoded_subject = mb_encode_mimeheader($subject, 'UTF-8');
+    $fromEmail = defined('MAIL_FROM') ? MAIL_FROM : 'noreply@sept3.co.jp';
+    $adminEmail = defined('ADMIN_EMAIL') ? ADMIN_EMAIL : 'design@sept3.co.jp';
     
-    $success = mb_send_mail(
-        $adminEmail,
-        $subject,
-        $mailBody,
-        implode("\r\n", $headers)
-    );
+    $headers = "From: " . mb_encode_mimeheader('sept.3', 'UTF-8') . " <{$fromEmail}>\r\n";
+    $headers .= "Reply-To: {$email}\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+    $headers .= "X-Priority: 3\r\n";
+    
+    $success = mb_send_mail($adminEmail, $encoded_subject, $mailBody, $headers);
     
     if (!$success) {
         logSecurity('Mail send failed to admin');
-        throw new Exception('メール送信に失敗しました');
+        sendErrorNotification('メール送信失敗', 'お問い合わせフォームからのメール送信に失敗しました。');
+        throw new Exception('メール送信に失敗しました。時間をおいて再度お試しください。');
     }
     
     // 自動返信メール（お客様宛）
@@ -467,57 +308,60 @@ try {
     $autoReplyBody .= "FAX: 06-6376-0913\n";
     $autoReplyBody .= "━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
     
-    $autoReplyHeaders = array();
-    $autoReplyHeaders[] = 'From: ' . mb_encode_mimeheader('sept.3', 'UTF-8') . ' <' . $fromEmail . '>';
-    $autoReplyHeaders[] = 'Content-Type: text/plain; charset=UTF-8';
-    
-    $autoReplySuccess = mb_send_mail(
-        $replyEmail,
-        '【sept.3】お問い合わせを受け付けました',
-        $autoReplyBody,
-        implode("\r\n", $autoReplyHeaders)
-    );
+    $autoReplySubject = '【sept.3】お問い合わせを受け付けました';
+    $encodedAutoReplySubject = mb_encode_mimeheader($autoReplySubject, 'UTF-8');
+
+    $autoReplySuccess = mb_send_mail($email, $encodedAutoReplySubject, $autoReplyBody, $autoReplyHeaders);
     
     if (!$autoReplySuccess) {
         logSecurity('Auto-reply mail send failed to: ' . $email);
     }
     
-    // ログ記録（成功）
-    $logDir = __DIR__ . '/logs';
+    // 監査ログ記録（成功）
+    logAudit('FORM_SUBMIT_SUCCESS', [
+        'inquiry_type' => $inquiryTypeText,
+        'email' => $email,
+        'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Unknown'
+    ]);
+    
+    // 通常のログ記録
+    $logDir = defined('LOG_SAVE_PATH') ? LOG_SAVE_PATH : __DIR__ . '/logs';
     if (!is_dir($logDir)) {
         @mkdir($logDir, 0755, true);
     }
-    if (is_dir($logDir) && is_writable($logDir)) {
-        $logFile = $logDir . '/contact_' . date('Y-m') . '.log';
-        $logData = date('Y-m-d H:i:s') . " | SUCCESS | " . getRealIP() . " | " . $email . " | " . $inquiryTypeText . "\n";
-        @file_put_contents($logFile, $logData, FILE_APPEND | LOCK_EX);
-    }
+    $logFile = $logDir . '/contact_' . date('Y-m') . '.log';
+    $logData = date('Y-m-d H:i:s') . " | SUCCESS | " . getRealIP() . " | " . $email . " | " . $inquiryTypeText . "\n";
+    @file_put_contents($logFile, $logData, FILE_APPEND | LOCK_EX);
     
     // セッションIDの再生成（セキュリティ強化）
     session_regenerate_id(true);
     
     // 成功レスポンス
-    echo json_encode(array(
+    echo json_encode([
         'success' => true,
         'message' => 'お問い合わせを受け付けました。ご入力いただいたメールアドレスに確認メールをお送りしました。'
-    ));
+    ]);
     
 } catch (Exception $e) {
     // エラーログ記録
-    $logDir = __DIR__ . '/logs';
+    $logDir = defined('LOG_SAVE_PATH') ? LOG_SAVE_PATH : __DIR__ . '/logs';
     if (!is_dir($logDir)) {
         @mkdir($logDir, 0755, true);
     }
-    if (is_dir($logDir) && is_writable($logDir)) {
-        $logFile = $logDir . '/contact_' . date('Y-m') . '.log';
-        $logData = date('Y-m-d H:i:s') . " | ERROR | " . getRealIP() . " | " . $e->getMessage() . "\n";
-        @file_put_contents($logFile, $logData, FILE_APPEND | LOCK_EX);
-    }
+    $logFile = $logDir . '/contact_' . date('Y-m') . '.log';
+    $logData = date('Y-m-d H:i:s') . " | ERROR | " . getRealIP() . " | " . $e->getMessage() . "\n";
+    @file_put_contents($logFile, $logData, FILE_APPEND | LOCK_EX);
+    
+    // 監査ログ記録（エラー）
+    logAudit('FORM_SUBMIT_ERROR', [
+        'error' => $e->getMessage(),
+        'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'Unknown'
+    ]);
     
     http_response_code(400);
-    echo json_encode(array(
+    echo json_encode([
         'success' => false,
         'message' => $e->getMessage()
-    ));
+    ]);
 }
 ?>
