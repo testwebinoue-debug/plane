@@ -107,7 +107,7 @@ date_default_timezone_set('Asia/Tokyo');
 
 // 文字エンコーディング設定
 mb_internal_encoding('UTF-8');
-mb_language('ja');
+mb_language('Japanese');
 
 // デバッグモード（本番環境では必ずfalseに設定）
 define('DEBUG_MODE', false);

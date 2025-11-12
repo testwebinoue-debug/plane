@@ -297,7 +297,7 @@ function setLoadingState(isLoading, button) {
 }
 
 /**
- * フォーム送信処理（エンタープライズレベル）
+ * フォーム送信処理（エンタープライズレベル）- 修正版
  */
 async function handleFormSubmit(e) {
     e.preventDefault();
@@ -330,12 +330,7 @@ async function handleFormSubmit(e) {
         website: '' // ハニーポット
     };
     
-    // 二重送信トークンを付与
-    if (doubleSubmitToken) {
-        formData.double_submit_token = doubleSubmitToken;
-    }
-    
-    // 二重送信防止トークン
+    // 二重送信防止トークンを付与（存在する場合のみ）
     if (doubleSubmitToken) {
         formData.double_submit_token = doubleSubmitToken;
     }
@@ -392,7 +387,13 @@ async function handleFormSubmit(e) {
             form.reset();
             selectInquiryType('consultation');
             
-            // 新しいCSRFトークンを取得
+            // ★重要：新しいトークンを取得してから次の送信を許可
+            // トークンをクリアして、次回送信時に再取得させる
+            csrfToken = null;
+            doubleSubmitToken = null;
+            formTimestamp = null;
+            
+            // すぐに新しいトークンを取得
             await fetchCSRFToken();
             
             // スクロールをトップに
@@ -404,6 +405,12 @@ async function handleFormSubmit(e) {
                 showNotification('アクセスが拒否されました。', 'error');
             } else {
                 showNotification(data.message || '送信に失敗しました', 'error');
+                
+                // エラー時もトークンを再取得
+                csrfToken = null;
+                doubleSubmitToken = null;
+                formTimestamp = null;
+                await fetchCSRFToken();
             }
         }
     } catch (error) {
@@ -413,6 +420,12 @@ async function handleFormSubmit(e) {
             console.error('Form submission error:', error);
             showNotification('送信中にエラーが発生しました。時間をおいて再度お試しください。', 'error');
         }
+        
+        // エラー時もトークンを再取得
+        csrfToken = null;
+        doubleSubmitToken = null;
+        formTimestamp = null;
+        await fetchCSRFToken();
     } finally {
         setLoadingState(false, submitButton);
     }

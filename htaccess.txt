@@ -1,3 +1,8 @@
+# HTTPS redirect settings
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 # お名前.com SDプラン用 .htaccess（最小限版）
 # このファイルの使用はオプションです
 # config.phpの保護のみに使用することを推奨
