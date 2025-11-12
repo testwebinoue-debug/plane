@@ -310,6 +310,9 @@ try {
     
     $autoReplySubject = '【sept.3】お問い合わせを受け付けました';
     $encodedAutoReplySubject = mb_encode_mimeheader($autoReplySubject, 'UTF-8');
+    $autoReplyHeaders = "From: " . mb_encode_mimeheader('sept.3', 'UTF-8') . " <{$fromEmail}>\r\n";
+    $autoReplyHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $autoReplyHeaders .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
     $autoReplySuccess = mb_send_mail($email, $encodedAutoReplySubject, $autoReplyBody, $autoReplyHeaders);
     
