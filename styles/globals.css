@@ -558,6 +558,12 @@ p.mb-0 {
   line-height: 35px;
 }
 
+.hero-text h2 {
+  font-weight: normal !important;
+  font-size: 16px !important;
+  line-height: 35px !important;
+}
+
 .hero-mobile {
   display: block;
   background: rgba(255,255,255,0);
@@ -628,7 +634,7 @@ p.mb-0 {
   font-style: normal;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   width: 100%;
 }
@@ -673,7 +679,7 @@ p.mb-0 {
   font-family: 'Zen Kaku Gothic Antique', 'Noto Sans', sans-serif;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   line-height: 35px;
   width: 80px;
@@ -685,7 +691,7 @@ p.mb-0 {
   font-style: normal;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   line-height: 35px;
   flex: 1;
@@ -697,6 +703,157 @@ p.mb-0 {
 
 .company-values-mobile {
   display: block;
+}
+
+@media (min-width: 768px) {
+  .company-section {
+    padding: 50px;
+  }
+  
+  .company-title {
+    font-size: 42px;
+    line-height: 59px;
+    letter-spacing: 21px;
+    margin-bottom: 50px;
+  }
+}
+
+/* Company Section - Single Column Layout */
+.company-content-single {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.company-list-desktop {
+  display: none;
+}
+
+.company-list-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.company-item {
+  display: flex;
+  align-items: baseline;
+  padding: 0;
+  margin: 0;
+}
+
+.company-item-label {
+  font-family: 'Zen Kaku Gothic Antique', 'Noto Sans', sans-serif;
+  font-size: 16px;
+  color: black;
+  line-height: 35px;
+  font-variation-settings: 'CTGR' 0, 'wdth' 100, 'wght' 400;
+  flex-shrink: 0;
+  margin-right: 20px;
+  width: 80px;
+}
+
+.company-item-value {
+  font-family: 'Zen Kaku Gothic Antique', sans-serif;
+  font-size: 16px;
+  color: black;
+  line-height: 35px;
+  flex: 1;
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .company-list-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .company-list-mobile {
+    display: none;
+  }
+  
+  .company-item-label {
+    font-size: 18px;
+    line-height: 40px;
+    margin-right: 50px;
+    width: 110px;
+  }
+  
+  .company-item-value {
+    font-size: 18px;
+    line-height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .company-item-label {
+    width: 130px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .company-section {
+    padding: 50px 100px;
+  }
+  
+  .company-labels {
+    width: 130px;
+  }
+}
+  
+  .company-list-mobile {
+    display: none;
+  }
+  
+  .company-item-label {
+    font-size: 18px;
+    line-height: 40px;
+    margin-right: 50px;
+    width: 110px;
+  }
+  
+  .company-item-value {
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+@media (min-width: 1024px) {
+  .company-item-label {
+    width: 130px;
+  }
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+  .company-list-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .company-list-mobile {
+    display: none;
+  }
+  
+  .company-item-label {
+    font-size: 18px;
+    line-height: 40px;
+    margin-right: 50px;
+    width: 110px;
+  }
+  
+  .company-item-value {
+    font-size: 18px;
+    line-height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .company-item-label {
+    width: 130px;
+  }
 }
 
 /* Contact Form */
@@ -788,7 +945,7 @@ p.mb-0 {
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
   align-items: flex-start;
   position: relative;
   flex-shrink: 0;
@@ -802,7 +959,7 @@ p.mb-0 {
   position: relative;
   flex-shrink: 0;
   color: #3f3d3d;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .form-input {
@@ -812,7 +969,7 @@ p.mb-0 {
   border: 1px solid #9a9a9a;
   padding: 11px 12px;
   font-family: 'Zen Kaku Gothic Antique', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   color: #3f3d3d;
 }
 
@@ -829,7 +986,7 @@ p.mb-0 {
 .form-row {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
   width: 100%;
 }
 
@@ -840,7 +997,7 @@ p.mb-0 {
   border: 1px solid #9a9a9a;
   padding: 11px 12px;
   font-family: 'Zen Kaku Gothic Antique', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   color: #3f3d3d;
   resize: none;
 }
@@ -890,7 +1047,7 @@ p.mb-0 {
   position: relative;
   flex-shrink: 0;
   color: #3f3d3d;
-  font-size: 18px;
+  font-size: 16px;
   white-space: nowrap;
 }
 
@@ -1089,7 +1246,7 @@ p.mb-0 {
   font-style: normal;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   width: 100%;
 }
@@ -1156,7 +1313,7 @@ p.mb-0 {
   display: flex;
   gap: 19.084px;
   align-items: flex-start;
-  left: 17.56px;
+  left: 35px;
   padding: 3.817px 0;
   top: 132.5px;
 }
@@ -1190,7 +1347,7 @@ p.mb-0 {
   font-style: normal;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   white-space: nowrap;
 }
@@ -1347,52 +1504,104 @@ p.mb-0 {
   font-style: normal;
   position: relative;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   width: 100%;
 }
 
-.works-services {
+/* Works Services - Single Column Layout */
+.works-services-single {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 25px; /* 追加：モバイルは25px */
   width: 100%;
 }
 
-.works-services-labels {
+.works-list-desktop {
+  display: none;
+}
+
+.works-list-tablet {
+  display: none;
+}
+
+.works-list-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.works-item {
+  display: flex;
+  align-items: baseline;
+  padding: 0;
+  margin: 0;
+}
+
+.works-item-label {
   font-family: 'Zen Kaku Gothic Antique', 'Noto Sans', sans-serif;
-  position: relative;
-  flex-shrink: 0;
   font-size: 16px;
   color: black;
   line-height: 35px;
-  width: 100px;
   font-variation-settings: 'CTGR' 0, 'wdth' 100, 'wght' 400;
+  flex-shrink: 0;
+  margin-right: 20px;
+  width: 100px;
+  white-space: nowrap;
 }
 
-.works-services-values {
+.works-item-value {
   font-family: 'Zen Kaku Gothic Antique', sans-serif;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
   font-size: 16px;
   color: black;
   line-height: 35px;
   flex: 1;
 }
 
-.works-values-desktop {
-  display: none;
+/* Tablet */
+@media (min-width: 768px) {
+  .works-services-single {
+    gap: 40px; /* 追加：タブレットは40px */
+  }
+  
+  .works-list-tablet {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .works-list-mobile {
+    display: none;
+  }
+  
+  .works-item-label {
+    font-size: 18px;
+    line-height: 40px;
+    margin-right: 50px;
+    width: 130px;
+  }
+  
+  .works-item-value {
+    font-size: 18px;
+    line-height: 40px;
+  }
 }
 
-.works-values-tablet {
-  display: none;
-}
-
-.works-values-mobile {
-  display: block;
+/* Desktop */
+@media (min-width: 1024px) {
+  .works-services-single {
+    gap: 50px; /* 追加：デスクトップは50px */
+  }
+  
+  .works-list-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .works-list-tablet {
+    display: none;
+  }
 }
 
 .md-hidden {
