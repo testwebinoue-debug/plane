@@ -793,38 +793,6 @@ p.mb-0 {
   }
 }
 
-@media (min-width: 1024px) {
-  .company-section {
-    padding: 50px 100px;
-  }
-  
-  .company-labels {
-    width: 130px;
-  }
-}
-  
-  .company-list-mobile {
-    display: none;
-  }
-  
-  .company-item-label {
-    font-size: 18px;
-    line-height: 40px;
-    margin-right: 50px;
-    width: 110px;
-  }
-  
-  .company-item-value {
-    font-size: 18px;
-    line-height: 40px;
-  }
-
-@media (min-width: 1024px) {
-  .company-item-label {
-    width: 130px;
-  }
-}
-
 /* Tablet and Desktop */
 @media (min-width: 768px) {
   .company-list-desktop {
