@@ -887,7 +887,7 @@ p.mb-0 {
   position: relative;
   flex-shrink: 0;
   color: #3f3d3d;
-  font-size: 16px;
+  font-size: 14px;
   white-space: nowrap;
 }
 
@@ -1414,7 +1414,7 @@ p.mb-0 {
   }
   
   .hero-text {
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 35px !important;
   }
   
@@ -1525,7 +1525,34 @@ p.mb-0 {
   .footer-text {
     font-size: 16px !important;
   }
-}
+
+    /* 追加：本文テキストを14pxに統一 */
+    .hero-text p {
+      font-size: 14px !important;
+    }
+    
+    .about-text-mobile p {
+      font-size: 14px !important;
+    }
+    
+    .company-item-label,
+    .company-item-value {
+      font-size: 14px !important;
+    }
+    
+    .introduction-text-mobile p {
+      font-size: 14px !important;
+    }
+    
+    .works-text-mobile p {
+      font-size: 14px !important;
+    }
+    
+    .works-item-label,
+    .works-item-value {
+      font-size: 14px !important;
+    }
+  }
 
 /* タブレット・デスクトップ共通 768px以上 */
 @media (min-width: 768px) {
