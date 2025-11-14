@@ -1,7 +1,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --font-size: 16px;
+  --font-size: 14px;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
@@ -606,7 +606,7 @@ p.mb-0 {
   flex-shrink: 0;
   color: black;
   white-space: nowrap;
-  font-size: 26px;
+  font-size: 20px;
   line-height: 40px;
   letter-spacing: 13px;
 }
@@ -661,7 +661,7 @@ p.mb-0 {
   color: black;
   letter-spacing: 13px;
   white-space: nowrap;
-  font-size: 26px;
+  font-size: 20px;
   line-height: 40px;
   margin-bottom: 25px;
 }
@@ -852,7 +852,7 @@ p.mb-0 {
   flex-shrink: 0;
   color: black;
   white-space: nowrap;
-  font-size: 26px;
+  font-size: 20px;
   line-height: 40px;
   letter-spacing: 13px;
 }
@@ -1018,7 +1018,7 @@ p.mb-0 {
   inset: 10.83% 41.7% 13.88% 38.8%;
   line-height: 28px;
   font-style: normal;
-  font-size: 18px;
+  font-size: 14px;
   text-align: center;
   color: white;
 }
@@ -1106,7 +1106,14 @@ p.mb-0 {
   flex-shrink: 0;
   width: 100%;
   height: 300px;
-  max-width: 343px;
+  /* max-width: 343px; を削除 */
+}
+
+.philosophy-bg-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* cover から contain に変更 */
+  object-position: center;
 }
 
 .philosophy-title-wrapper {
@@ -1137,7 +1144,7 @@ p.mb-0 {
   flex-shrink: 0;
   color: black;
   white-space: nowrap;
-  font-size: 26px;
+  font-size: 20px;
   line-height: 59px;
   letter-spacing: 13px;
 }
@@ -1408,7 +1415,7 @@ p.mb-0 {
   flex-shrink: 0;
   color: black;
   white-space: nowrap;
-  font-size: 26px;
+  font-size: 20px;
   line-height: 40px;
   letter-spacing: 13px;
 }
@@ -1512,14 +1519,14 @@ p.mb-0 {
   }
   
   .works-item-label {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 40px;
     margin-right: 50px;
     width: 130px;
   }
   
   .works-item-value {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 40px;
   }
 }
@@ -1767,7 +1774,6 @@ p.mb-0 {
   
   .philosophy-bg-inner {
     height: 641px;
-    max-width: 734px;
   }
   
   .philosophy-title-wrapper {
@@ -2016,7 +2022,6 @@ p.mb-0 {
   
   .philosophy-bg-inner {
     height: 853px;
-    max-width: 1000px;
   }
   
   .philosophy-title-wrapper {
