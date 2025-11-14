@@ -136,7 +136,6 @@ body {
   padding: 0;
 }
 
-/* Reset paragraph margins */
 p {
   margin: 0;
 }
@@ -145,7 +144,6 @@ p.mb-0 {
   margin-bottom: 0;
 }
 
-/* Layout Container */
 .layout-container {
   background: white;
   min-height: 100vh;
@@ -160,7 +158,6 @@ p.mb-0 {
   max-width: 1440px;
 }
 
-/* Header Styles */
 .header-desktop {
   display: none;
   height: 123px;
@@ -232,7 +229,6 @@ p.mb-0 {
   cursor: pointer;
 }
 
-/* Navigation Items */
 .nav-item {
   box-sizing: border-box;
   cursor: pointer;
@@ -268,7 +264,6 @@ p.mb-0 {
   font-size: 14px;
 }
 
-/* Hamburger Icon */
 .hamburger-icon {
   height: 20px;
   position: relative;
@@ -290,7 +285,6 @@ p.mb-0 {
   height: 100%;
 }
 
-/* Close Icon */
 .close-icon {
   height: 25px;
   position: relative;
@@ -309,7 +303,6 @@ p.mb-0 {
   height: 100%;
 }
 
-/* Mobile Menu */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -386,7 +379,6 @@ p.mb-0 {
   opacity: 0.7;
 }
 
-/* Footer */
 .footer-container {
   flex-basis: 0;
   background: #f9f9f9;
@@ -465,7 +457,6 @@ p.mb-0 {
   display: block;
 }
 
-/* Main Content */
 .main-content {
   display: flex;
   flex-direction: column;
@@ -483,7 +474,6 @@ p.mb-0 {
   width: 100%;
 }
 
-/* Hero Section */
 .hero-section {
   position: relative;
   flex-shrink: 0;
@@ -579,7 +569,6 @@ p.mb-0 {
   top: 4px;
 }
 
-/* About Section */
 .about-section {
   background: rgba(255,255,255,0);
   position: relative;
@@ -639,7 +628,6 @@ p.mb-0 {
   width: 100%;
 }
 
-/* Company Section */
 .company-section {
   background: rgba(255,255,255,0);
   position: relative;
@@ -666,59 +654,6 @@ p.mb-0 {
   margin-bottom: 25px;
 }
 
-.company-content {
-  display: flex;
-  gap: 25px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-.company-labels {
-  font-family: 'Zen Kaku Gothic Antique', 'Noto Sans', sans-serif;
-  position: relative;
-  flex-shrink: 0;
-  font-size: 14px;
-  color: black;
-  line-height: 35px;
-  width: 80px;
-  font-variation-settings: 'CTGR' 0, 'wdth' 100, 'wght' 400;
-}
-
-.company-values {
-  font-family: 'Zen Kaku Gothic Antique', sans-serif;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  font-size: 14px;
-  color: black;
-  line-height: 35px;
-  flex: 1;
-}
-
-.company-values-desktop {
-  display: none;
-}
-
-.company-values-mobile {
-  display: block;
-}
-
-@media (min-width: 768px) {
-  .company-section {
-    padding: 50px;
-  }
-  
-  .company-title {
-    font-size: 42px;
-    line-height: 59px;
-    letter-spacing: 21px;
-    margin-bottom: 50px;
-  }
-}
-
-/* Company Section - Single Column Layout */
 .company-content-single {
   display: flex;
   flex-direction: column;
@@ -762,38 +697,6 @@ p.mb-0 {
   flex: 1;
 }
 
-/* Tablet and Desktop */
-@media (min-width: 768px) {
-  .company-list-desktop {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  
-  .company-list-mobile {
-    display: none;
-  }
-  
-  .company-item-label {
-    font-size: 16px;
-    line-height: 40px;
-    margin-right: 50px;
-    width: 110px;
-  }
-  
-  .company-item-value {
-    font-size: 16px;
-    line-height: 40px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .company-item-label {
-    width: 130px;
-  }
-}
-
-/* Contact Form */
 .contact-main {
   display: flex;
   flex-direction: column;
@@ -1052,7 +955,6 @@ p.mb-0 {
   margin-top: 0;
 }
 
-/* Works Page */
 .works-main {
   display: flex;
   flex-direction: column;
@@ -1106,13 +1008,12 @@ p.mb-0 {
   flex-shrink: 0;
   width: 100%;
   height: 300px;
-  /* max-width: 343px; を削除 */
 }
 
 .philosophy-bg-inner img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* cover から contain に変更 */
+  object-fit: contain;
   object-position: center;
 }
 
@@ -1383,7 +1284,7 @@ p.mb-0 {
   width: 100%;
   height: 100%;
   margin: 0 calc(50% - 50vw);
-  width: 100vw
+  width: 100vw;
 }
 
 .works-section {
@@ -1453,11 +1354,10 @@ p.mb-0 {
   width: 100%;
 }
 
-/* Works Services - Single Column Layout */
 .works-services-single {
   display: flex;
   flex-direction: column;
-  gap: 25px; /* 追加：モバイルは25px */
+  gap: 25px;
   width: 100%;
 }
 
@@ -1502,44 +1402,17 @@ p.mb-0 {
   flex: 1;
 }
 
-/* Tablet */
-@media (min-width: 768px) {
-  .works-services-single {
-    gap: 40px; /* 追加：タブレットは40px */
-  }
-  
-  .works-list-tablet {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  
-  .works-list-mobile {
-    display: none;
-  }
-  
-  .works-item-label {
-    font-size: 14px;
-    line-height: 40px;
-    margin-right: 50px;
-    width: 130px;
-  }
-  
-  .works-item-value {
-    font-size: 14px;
-    line-height: 40px;
-  }
+.md-hidden {
+  display: block;
 }
 
-/* スマホ横向き対応 - フォントサイズをモバイル縦向きと同じにする */
+/* スマホ横向き対応 */
 @media (max-width: 767px) and (orientation: landscape) {
-  /* 共通ナビゲーション */
   .nav-item-text,
   .nav-item-text.mobile {
     font-size: 14px !important;
   }
   
-  /* index.html用 */
   .hero-text {
     font-size: 16px !important;
     line-height: 35px !important;
@@ -1577,7 +1450,6 @@ p.mb-0 {
     line-height: 35px !important;
   }
   
-  /* contact.html用 */
   .contact-title {
     font-size: 20px !important;
     line-height: 40px !important;
@@ -1594,7 +1466,7 @@ p.mb-0 {
   }
   
   .form-textarea {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
   
   .radio-label {
@@ -1606,7 +1478,10 @@ p.mb-0 {
     line-height: 28px !important;
   }
   
-  /* works.html用 */
+  .submit-arrow {
+    font-size: 16px !important;
+  }
+  
   .philosophy-title {
     font-size: 20px !important;
     line-height: 59px !important;
@@ -1647,178 +1522,12 @@ p.mb-0 {
     line-height: 35px !important;
   }
   
-  /* フッター */
   .footer-text {
     font-size: 16px !important;
   }
 }
 
-@media (min-width: 1024px) {
-  .header-desktop {
-    display: block;
-  }
-  
-  .header-mobile {
-    display: none;
-  }
-  
-  .mobile-menu {
-    display: none;
-  }
-  
-  .footer-content {
-    padding: 15px 100px 25px;
-    gap: 25px;
-  }
-  
-  .footer-nav {
-    gap: 75px;
-  }
-  
-  .main-content {
-    gap: 132px;
-    margin-top: 132px;
-  }
-  
-  .main-inner {
-    gap: 130px;
-  }
-  
-  .hero-section {
-    height: 1353px;
-  }
-  
-  .hero-bg-image {
-    width: 1150px;
-  }
-  
-  .hero-logo-container {
-    left: 100px;
-    top: 512px;
-    width: 670px;
-  }
-  
-  .hero-logo {
-    height: 128px;
-  }
-  
-  .hero-text-container {
-    left: 100px;
-    top: 692px;
-  }
-  
-  .about-section {
-    padding: 50px 100px;
-  }
-  
-  .company-section {
-    padding: 50px 100px;
-  }
-  
-  .company-labels {
-    width: 130px;
-  }
-  
-  .contact-main {
-    gap: 90px;
-    margin-top: 77px;
-  }
-  
-  .contact-form-content {
-    padding: 0 100px;
-  }
-  
-  .contact-title-section {
-    padding: 60px 0;
-  }
-  
-  .works-main {
-    gap: 90px;
-    margin-top: 200px;
-  }
-  
-  .works-inner {
-    gap: 130px;
-  }
-  
-  .works-inner > .face-section {
-    margin-bottom: -130px;
-  }
-  
-  .works-inner > .works-section {
-    margin-top: 130px;
-  }
-  
-  .philosophy-section {
-    height: 1150px;
-  }
-  
-  .philosophy-bg {
-    padding: 0 100px;
-    top: 249px;
-  }
-  
-  .philosophy-bg-inner {
-    height: 853px;
-  }
-  
-  .philosophy-title-wrapper {
-    padding: 60px 100px 0;
-  }
-  
-  .introduction-section {
-    padding: 50px 100px;
-  }
-  
-  .face-bg {
-    height: 718px;
-  }
-  
-  .face-image-wrapper {
-    top: -89px;
-    height: 975px;
-  }
-  
-  .face-image-content {
-    height: 1131px;
-    max-width: 1440px;
-  }
-  
-  .works-section {
-    padding: 50px 100px;
-  }
-  
-  .works-values-desktop {
-    display: block;
-  }
-  
-  .works-values-tablet {
-    display: none;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-  .works-services-single {
-    gap: 50px; /* 追加：デスクトップは50px */
-  }
-  
-  .works-list-desktop {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  
-  .works-list-tablet {
-    display: none;
-  }
-}
-
-.md-hidden {
-  display: block;
-}
-
-/* Media Queries */
+/* タブレット・デスクトップ共通 768px以上 */
 @media (min-width: 768px) {
   .header-desktop {
     display: none;
@@ -1939,27 +1648,26 @@ p.mb-0 {
     margin-bottom: 50px;
   }
   
-  .company-content {
-    gap: 50px;
+  .company-list-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
   
-  .company-labels {
-    font-size: 18px;
+  .company-list-mobile {
+    display: none;
+  }
+  
+  .company-item-label {
+    font-size: 16px;
     line-height: 40px;
+    margin-right: 50px;
     width: 110px;
   }
   
-  .company-values {
-    font-size: 18px;
+  .company-item-value {
+    font-size: 16px;
     line-height: 40px;
-  }
-  
-  .company-values-desktop {
-    display: block;
-  }
-  
-  .company-values-mobile {
-    display: none;
   }
   
   .contact-main {
@@ -2153,34 +1861,34 @@ p.mb-0 {
     display: none;
   }
   
-  .works-services {
-    gap: 50px;
+  .works-services-single {
+    gap: 40px;
   }
   
-  .works-services-labels {
-    font-size: 18px;
+  .works-list-tablet {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .works-list-mobile {
+    display: none;
+  }
+  
+  .works-item-label {
+    font-size: 14px;
     line-height: 40px;
+    margin-right: 50px;
     width: 130px;
   }
   
-  .works-services-values {
-    font-size: 18px;
+  .works-item-value {
+    font-size: 14px;
     line-height: 40px;
-  }
-  
-  .works-values-desktop {
-    display: none;
-  }
-  
-  .works-values-tablet {
-    display: block;
-  }
-  
-  .works-values-mobile {
-    display: none;
   }
 }
 
+/* デスクトップ 1024px以上 */
 @media (min-width: 1024px) {
   .header-desktop {
     display: block;
@@ -2243,7 +1951,7 @@ p.mb-0 {
     padding: 50px 100px;
   }
   
-  .company-labels {
+  .company-item-label {
     width: 130px;
   }
   
@@ -2316,11 +2024,17 @@ p.mb-0 {
     padding: 50px 100px;
   }
   
-  .works-values-desktop {
-    display: block;
+  .works-services-single {
+    gap: 50px;
   }
   
-  .works-values-tablet {
+  .works-list-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .works-list-tablet {
     display: none;
   }
 }
