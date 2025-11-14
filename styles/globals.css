@@ -1531,6 +1531,272 @@ p.mb-0 {
   }
 }
 
+/* スマホ横向き対応 - フォントサイズをモバイル縦向きと同じにする */
+@media (max-width: 767px) and (orientation: landscape) {
+  /* 共通ナビゲーション */
+  .nav-item-text,
+  .nav-item-text.mobile {
+    font-size: 14px !important;
+  }
+  
+  /* index.html用 */
+  .hero-text {
+    font-size: 16px !important;
+    line-height: 35px !important;
+  }
+  
+  .hero-text h2 {
+    font-size: 16px !important;
+    line-height: 35px !important;
+  }
+  
+  .about-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .about-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .company-item-label {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  /* contact.html用 */
+  .contact-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .form-label {
+    font-size: 14px !important;
+    line-height: 28px !important;
+  }
+  
+  .form-input {
+    font-size: 14px !important;
+  }
+  
+  .form-textarea {
+    font-size: 14px !important;
+  }
+  
+  .radio-label {
+    font-size: 14px !important;
+  }
+  
+  .submit-text {
+    font-size: 14px !important;
+    line-height: 28px !important;
+  }
+  
+  /* works.html用 */
+  .philosophy-title {
+    font-size: 20px !important;
+    line-height: 59px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .introduction-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .heart-text-description-content {
+    font-size: 14px !important;
+  }
+  
+  .heart-text-title-content {
+    font-size: 21px !important;
+  }
+  
+  .works-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .works-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-label {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  /* フッター */
+  .footer-text {
+    font-size: 16px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-desktop {
+    display: block;
+  }
+  
+  .header-mobile {
+    display: none;
+  }
+  
+  .mobile-menu {
+    display: none;
+  }
+  
+  .footer-content {
+    padding: 15px 100px 25px;
+    gap: 25px;
+  }
+  
+  .footer-nav {
+    gap: 75px;
+  }
+  
+  .main-content {
+    gap: 132px;
+    margin-top: 132px;
+  }
+  
+  .main-inner {
+    gap: 130px;
+  }
+  
+  .hero-section {
+    height: 1353px;
+  }
+  
+  .hero-bg-image {
+    width: 1150px;
+  }
+  
+  .hero-logo-container {
+    left: 100px;
+    top: 512px;
+    width: 670px;
+  }
+  
+  .hero-logo {
+    height: 128px;
+  }
+  
+  .hero-text-container {
+    left: 100px;
+    top: 692px;
+  }
+  
+  .about-section {
+    padding: 50px 100px;
+  }
+  
+  .company-section {
+    padding: 50px 100px;
+  }
+  
+  .company-labels {
+    width: 130px;
+  }
+  
+  .contact-main {
+    gap: 90px;
+    margin-top: 77px;
+  }
+  
+  .contact-form-content {
+    padding: 0 100px;
+  }
+  
+  .contact-title-section {
+    padding: 60px 0;
+  }
+  
+  .works-main {
+    gap: 90px;
+    margin-top: 200px;
+  }
+  
+  .works-inner {
+    gap: 130px;
+  }
+  
+  .works-inner > .face-section {
+    margin-bottom: -130px;
+  }
+  
+  .works-inner > .works-section {
+    margin-top: 130px;
+  }
+  
+  .philosophy-section {
+    height: 1150px;
+  }
+  
+  .philosophy-bg {
+    padding: 0 100px;
+    top: 249px;
+  }
+  
+  .philosophy-bg-inner {
+    height: 853px;
+  }
+  
+  .philosophy-title-wrapper {
+    padding: 60px 100px 0;
+  }
+  
+  .introduction-section {
+    padding: 50px 100px;
+  }
+  
+  .face-bg {
+    height: 718px;
+  }
+  
+  .face-image-wrapper {
+    top: -89px;
+    height: 975px;
+  }
+  
+  .face-image-content {
+    height: 1131px;
+    max-width: 1440px;
+  }
+  
+  .works-section {
+    padding: 50px 100px;
+  }
+  
+  .works-values-desktop {
+    display: block;
+  }
+  
+  .works-values-tablet {
+    display: none;
+  }
+}
+
 /* Desktop */
 @media (min-width: 1024px) {
   .works-services-single {
@@ -1912,6 +2178,132 @@ p.mb-0 {
   
   .works-values-mobile {
     display: none;
+  }
+}
+
+/* スマホ横向き対応 - フォントサイズをモバイル縦向きと同じにする */
+@media (max-width: 767px) and (orientation: landscape) {
+  /* 共通ナビゲーション */
+  .nav-item-text,
+  .nav-item-text.mobile {
+    font-size: 14px !important;
+  }
+  
+  /* index.html用 */
+  .hero-text {
+    font-size: 16px !important;
+    line-height: 35px !important;
+  }
+  
+  .hero-text h2 {
+    font-size: 16px !important;
+    line-height: 35px !important;
+  }
+  
+  .about-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .about-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .company-item-label {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  /* contact.html用 */
+  .contact-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .form-label {
+    font-size: 14px !important;
+    line-height: 28px !important;
+  }
+  
+  .form-input {
+    font-size: 14px !important;
+  }
+  
+  .form-textarea {
+    font-size: 16px !important;
+  }
+  
+  .radio-label {
+    font-size: 14px !important;
+  }
+  
+  .submit-text {
+    font-size: 14px !important;
+    line-height: 28px !important;
+  }
+  
+  .submit-arrow {
+    font-size: 16px !important;
+  }
+  
+  /* works.html用 */
+  .philosophy-title {
+    font-size: 20px !important;
+    line-height: 59px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .introduction-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .heart-text-description-content {
+    font-size: 14px !important;
+  }
+  
+  .heart-text-title-content {
+    font-size: 21px !important;
+  }
+  
+  .works-title {
+    font-size: 20px !important;
+    line-height: 40px !important;
+    letter-spacing: 13px !important;
+  }
+  
+  .works-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-label {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  /* フッター */
+  .footer-text {
+    font-size: 16px !important;
   }
 }
 
