@@ -1408,13 +1408,13 @@ p.mb-0 {
 
 /* スマホ横向き対応 */
 @media (max-width: 767px) and (orientation: landscape) {
-  .nav-item-text,
-  .nav-item-text.mobile {
+  _:lang(x)+_:-webkit-full-screen-document, .nav-item-text,
+  _:lang(x)+_:-webkit-full-screen-document, .nav-item-text.mobile {
     font-size: 14px !important;
   }
   
   /* hero-textを削除して、h2のみ16pxに */
-  .hero-text h2 {
+  _:lang(x)+_:-webkit-full-screen-document, .hero-text h2 {
     font-size: 16px !important;
     line-height: 35px !important;
   }

@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sept.3 - Home</title>
-  <link rel="stylesheet" href="styles/globals.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
+    <!-- ページタイトル -->
+    <title>株式会社sept.3 – クリエイティブデザイン</title>
+  
+    <!-- メタディスクリプション -->
+    <meta name="description" content="株式会社sept.3はグラフィックデザインやWebデザインからブランディングまで、クリエイティブな広告制作を得意とするデザイン会社です。心に響くクリエイティブでブランドの魅力を最大化します。">
+  
+    <!-- Robots 指示 -->
+    <meta name="robots" content="index, follow">
+  
+    <!-- 正規 URL -->
+    <link rel="canonical" href="https://sept3.co.jp/">
+  
+    <!-- OGP（FacebookなどSNS向け） -->
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="株式会社sept.3 – クリエイティブデザイン">
+    <meta property="og:description" content="株式会社sept.3はグラフィックデザインやWebデザインからブランディングまで、クリエイティブな広告制作を得意とするデザイン会社です。心に響くクリエイティブでブランドの魅力を最大化します。">
+    <meta property="og:url" content="https://sept3.co.jp/">
+    <meta property="og:site_name" content="sept.3">
+    <meta property="og:image" content="https://sept3.co.jp/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+  
+    <!-- Twitterカード -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@sept3">
+    <meta name="twitter:title" content="株式会社sept.3 – クリエイティブデザイン">
+    <meta name="twitter:description" content="グラフィックデザイン、Webデザイン、ブランディングなど、株式会社sept.3のクリエイティブ力でブランド価値を強化します。">
+    <meta name="twitter:image" content="https://sept3.co.jp/assets/images/twitter-card.jpg">
+  
+    <!-- スタイルシート -->
+    <link rel="stylesheet" href="styles/globals.css">
+  
+    <!-- フェビコン -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
+  </head>
 <body>
   <div class="layout-container">
     <div class="layout-wrapper">
       <!-- Header Desktop -->
       <div class="header-desktop">
         <div class="header-desktop-inner">
-          <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+          <button onclick="navigateTo('index.html', 'home-text')" class="nav-item">
             <p class="nav-item-text">HOME</p>
           </button>
-          <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+          <button onclick="navigateTo('index.html', 'about-text')" class="nav-item">
             <p class="nav-item-text">ABOUT</p>
           </button>
-          <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+          <button onclick="navigateTo('index.html', 'company_info-text')" class="nav-item">
             <p class="nav-item-text">COMPANY INFO</p>
           </button>
           <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
             <p class="nav-item-text">PHILOSOPHY</p>
           </button>
-          <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+          <button onclick="navigateTo('works.html', 'works-text')" class="nav-item">
             <p class="nav-item-text">WORKS</p>
           </button>
-          <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+          <button onclick="navigateTo('contact.html', 'works-text')" class="nav-item">
             <p class="nav-item-text">CONTACT</p>
           </button>
         </div>
@@ -86,22 +129,22 @@
         </div>
         
         <div class="mobile-menu-nav">
-          <button onclick="navigateToAndClose('index.html', 'home_frame')" class="mobile-menu-nav-item">
+          <button onclick="navigateToAndClose('index.html', 'home-text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">HOME</p>
           </button>
-          <button onclick="navigateToAndClose('index.html', 'text2')" class="mobile-menu-nav-item">
+          <button onclick="navigateToAndClose('index.html', 'about-text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">ABOUT</p>
           </button>
-          <button onclick="navigateToAndClose('index.html', 'text4')" class="mobile-menu-nav-item">
+          <button onclick="navigateToAndClose('index.html', 'company_info-text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">COMPANY INFO</p>
           </button>
           <button onclick="navigateToAndClose('works.html', 'philosophy_text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">PHILOSOPHY</p>
           </button>
-          <button onclick="navigateToAndClose('works.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+          <button onclick="navigateToAndClose('works.html', 'works-text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">WORKS</p>
           </button>
-          <button onclick="navigateToAndClose('contact.html', 'main_frame3-1_text')" class="mobile-menu-nav-item">
+          <button onclick="navigateToAndClose('contact.html', 'works-text')" class="mobile-menu-nav-item">
             <p class="nav-item-text">CONTACT</p>
           </button>
         </div>
@@ -111,7 +154,7 @@
       <div class="main-content">
         <div class="main-inner">
           <!-- Hero Section -->
-          <div id="home_frame" class="hero-section">
+          <div id="home-text" class="hero-section">
             <!-- Desktop/Tablet -->
             <div class="hero-desktop">
               <div class="hero-bg-image">
@@ -154,7 +197,7 @@
           </div>
 
           <!-- About Section -->
-          <div id="text2" class="about-section">
+          <div id="about-text" class="about-section">
             <div class="about-inner">
               <div>
                 <p class="about-title">
@@ -187,7 +230,7 @@
           </div>
 
           <!-- Company Section -->
-          <div id="text4" class="company-section">
+          <div id="company_info-text" class="company-section">
             <p class="company-title">
               COMPANY INFO
             </p>
@@ -259,22 +302,22 @@
           <div class="footer-content">
             <!-- Footer Navigation -->
             <div class="footer-nav">
-              <button onclick="navigateTo('index.html', 'home_frame')" class="nav-item">
+              <button onclick="navigateTo('index.html', 'home-text')" class="nav-item">
                 <p class="nav-item-text mobile">HOME</p>
               </button>
-              <button onclick="navigateTo('index.html', 'text2')" class="nav-item">
+              <button onclick="navigateTo('index.html', 'about-text')" class="nav-item">
                 <p class="nav-item-text mobile">ABOUT</p>
               </button>
-              <button onclick="navigateTo('index.html', 'text4')" class="nav-item">
+              <button onclick="navigateTo('index.html', 'company_info-text')" class="nav-item">
                 <p class="nav-item-text mobile">COMPANY INFO</p>
               </button>
               <button onclick="navigateTo('works.html', 'philosophy_text')" class="nav-item">
                 <p class="nav-item-text mobile">PHILOSOPHY</p>
               </button>
-              <button onclick="navigateTo('works.html', 'main_frame3-1_text')" class="nav-item">
+              <button onclick="navigateTo('works.html', 'works-text')" class="nav-item">
                 <p class="nav-item-text mobile">WORKS</p>
               </button>
-              <button onclick="navigateTo('contact.html', 'main_frame3-1_text')" class="nav-item">
+              <button onclick="navigateTo('contact.html', 'works-text')" class="nav-item">
                 <p class="nav-item-text mobile">CONTACT</p>
               </button>
             </div>
