@@ -1413,13 +1413,15 @@ p.mb-0 {
     font-size: 14px !important;
   }
   
-  .hero-text {
-    font-size: 14px !important;
+  /* hero-textを削除して、h2のみ16pxに */
+  .hero-text h2 {
+    font-size: 16px !important;
     line-height: 35px !important;
   }
   
-  .hero-text h2 {
-    font-size: 16px !important;
+  /* pタグは14pxに */
+  .hero-text p {
+    font-size: 14px !important;
     line-height: 35px !important;
   }
   
@@ -1430,6 +1432,11 @@ p.mb-0 {
   }
   
   .about-text-mobile {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .about-text-mobile p {
     font-size: 14px !important;
     line-height: 35px !important;
   }
@@ -1493,6 +1500,11 @@ p.mb-0 {
     line-height: 35px !important;
   }
   
+  .introduction-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
   .heart-text-description-content {
     font-size: 14px !important;
   }
@@ -1512,6 +1524,11 @@ p.mb-0 {
     line-height: 35px !important;
   }
   
+  .works-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
   .works-item-label {
     font-size: 14px !important;
     line-height: 35px !important;
@@ -1525,34 +1542,7 @@ p.mb-0 {
   .footer-text {
     font-size: 16px !important;
   }
-
-    /* 追加：本文テキストを14pxに統一 */
-    .hero-text p {
-      font-size: 14px !important;
-    }
-    
-    .about-text-mobile p {
-      font-size: 14px !important;
-    }
-    
-    .company-item-label,
-    .company-item-value {
-      font-size: 14px !important;
-    }
-    
-    .introduction-text-mobile p {
-      font-size: 14px !important;
-    }
-    
-    .works-text-mobile p {
-      font-size: 14px !important;
-    }
-    
-    .works-item-label,
-    .works-item-value {
-      font-size: 14px !important;
-    }
-  }
+}
 
 /* タブレット・デスクトップ共通 768px以上 */
 @media (min-width: 768px) {
