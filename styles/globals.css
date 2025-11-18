@@ -1416,7 +1416,7 @@ p.mb-0 {
   
   /* hero-textを削除して、h2のみ16pxに */
   _:lang(x)+_:-webkit-full-screen-document, .hero-text h2 {
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 35px !important;
   }
   
@@ -2054,5 +2054,73 @@ p.mb-0 {
   
   .works-list-tablet {
     display: none;
+  }
+}
+
+/* iPhone横向き対応 - 高さベース */
+@media screen and (max-height: 430px) and (orientation: landscape) {
+  .about-text-mobile,
+  .about-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-item-label,
+  .company-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .introduction-text-mobile,
+  .introduction-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-text-mobile,
+  .works-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-label,
+  .works-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+}
+
+/* iPhone横向き対応 - 767px以下のみ適用 */
+@media screen and (max-width: 767px) and (orientation: landscape) {
+  /* index.html用 */
+  .about-text-mobile,
+  .about-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .company-item-label,
+  .company-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  /* works.html用 */
+  .introduction-text-mobile,
+  .introduction-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-text-mobile,
+  .works-text-mobile p {
+    font-size: 14px !important;
+    line-height: 35px !important;
+  }
+  
+  .works-item-label,
+  .works-item-value {
+    font-size: 14px !important;
+    line-height: 35px !important;
   }
 }
