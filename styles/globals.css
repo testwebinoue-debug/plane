@@ -355,9 +355,9 @@ p.mb-0 {
 
 .mobile-menu-nav {
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   align-items: flex-start;
   padding: 25px 25px;
 }
@@ -373,6 +373,7 @@ p.mb-0 {
   border: none;
   cursor: pointer;
   transition: opacity 0.3s;
+  width: 100%;
 }
 
 .mobile-menu-nav-item:hover {
