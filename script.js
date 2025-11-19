@@ -35,6 +35,8 @@ function navigateTo(page, section) {
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      // スクロール後にURLからハッシュを削除
+      removeHashFromUrl();
     }
   } else {
     // 別ページに遷移
@@ -48,6 +50,14 @@ function navigateToAndClose(page, section) {
   setTimeout(() => navigateTo(page, section), 300);
 }
 
+// URLからハッシュを削除する関数
+function removeHashFromUrl() {
+  if (window.history && window.history.replaceState) {
+    const cleanUrl = window.location.pathname + window.location.search;
+    window.history.replaceState(null, '', cleanUrl);
+  }
+}
+
 // ページ読み込み時にハッシュがあればスクロール
 window.addEventListener('DOMContentLoaded', () => {
   const hash = window.location.hash.substring(1);
@@ -56,6 +66,8 @@ window.addEventListener('DOMContentLoaded', () => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+        // スクロール後にハッシュを削除
+        removeHashFromUrl();
       }
     }, 100);
   }
