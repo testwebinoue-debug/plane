@@ -1919,8 +1919,8 @@ p.mb-0 {
   }
 }
 
-/* iPhone横向き対応 - 767px以下のみ適用 */
-@media screen and (max-width: 767px) and (orientation: landscape) {
+/* iPhone横向き対応 - 最優先・画面サイズ問わず適用 */
+@media screen and (orientation: landscape) and (max-height: 450px) {
   /* index.html用 */
   .about-text-mobile,
   .about-text-mobile p {
