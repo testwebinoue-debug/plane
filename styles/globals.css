@@ -424,7 +424,7 @@ p.mb-0 {
   padding: 0;
   position: relative;
   flex-shrink: 0;
-  gap: 25px;
+  gap: 10px;
 }
 
 .footer-text-container {
@@ -456,22 +456,24 @@ p.mb-0 {
 }
 
 .footer-text-mobile {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* p要素間の間隔をゼロに */
   line-height: 1;
 }
 
-/* この部分を追加・修正 */
 .footer-text-mobile p {
-  margin: -8px 0;  /* 負のマージンで行間を半分に */
+  margin: 0;
   line-height: 1;
+  padding: 4px 0; /* 内側の余白で調整 */
 }
 
 .footer-text-mobile p:first-child {
-  margin-top: 0;
+  padding-top: 0;
 }
 
 .footer-text-mobile p:last-child {
-  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .main-content {
@@ -1781,6 +1783,21 @@ p.mb-0 {
   .works-item-value {
     font-size: 16px;
     line-height: 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .footer-text-desktop p {
+    margin: -8px 0;
+    line-height: 1;
+  }
+  
+  .footer-text-desktop p:first-child {
+    margin-top: 0;
+  }
+  
+  .footer-text-desktop p:last-child {
+    margin-bottom: 0;
   }
 }
 
