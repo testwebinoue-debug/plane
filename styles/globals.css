@@ -1,3 +1,5 @@
+@custom-variant dark (&:is(.dark *));
+
 :root {
   --font-size: 14px;
   --background: #ffffff;
@@ -74,6 +76,47 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 * {
@@ -347,6 +390,7 @@ p.mb-0 {
   min-width: 1px;
   position: relative;
   flex-shrink: 0;
+  width: 100%;
   margin: 0 calc(50% - 50vw);
   width: 100vw;
 }
@@ -369,7 +413,7 @@ p.mb-0 {
   width: 100%;
   height: 100%;
   padding: 25px 25px;
-  gap: 10px;
+  gap: 15px;
 }
 
 .footer-nav {
@@ -398,7 +442,7 @@ p.mb-0 {
 .footer-text {
   font-family: 'Inter', 'Noto Sans JP', sans-serif;
   font-weight: 400;
-  line-height: 1;
+  line-height: 0.5;
   font-style: normal;
   position: relative;
   flex-shrink: 0;
@@ -410,12 +454,10 @@ p.mb-0 {
 
 .footer-text-desktop {
   display: none;
-  line-height: 1;
 }
 
 .footer-text-mobile {
   display: block;
-  line-height: 1;
 }
 
 .main-content {
@@ -843,7 +885,7 @@ p.mb-0 {
   flex-direction: column;
   font-family: 'Zen Kaku Gothic Antique', sans-serif;
   justify-content: center;
-  line-height: 1.75;  /* 修正: 28px / 16px */
+  line-height: 0;
   font-style: normal;
   position: relative;
   flex-shrink: 0;
@@ -853,6 +895,7 @@ p.mb-0 {
 }
 
 .radio-label p {
+  line-height: 28px;
   white-space: pre;
 }
 
@@ -1127,11 +1170,10 @@ p.mb-0 {
   display: inline-grid;
   grid-template-columns: max-content;
   grid-template-rows: max-content;
-  line-height: normal;
+  line-height: 0;
   place-items: flex-start;
   position: relative;
   flex-shrink: 0;
-  gap: 8px;  /* 要素間の間隔を追加 */
 }
 
 .heart-text-description {
@@ -1242,6 +1284,7 @@ p.mb-0 {
   object-position: 50% 50%;
   object-fit: cover;
   pointer-events: none;
+  width: 100%;
   height: 100%;
   margin: 0 calc(50% - 50vw);
   width: 100vw;
@@ -1392,7 +1435,7 @@ p.mb-0 {
   
   .footer-content {
     padding: 15px 50px 25px;
-    gap: 10px;
+    gap: 25px;
   }
   
   .footer-nav {
@@ -1402,20 +1445,12 @@ p.mb-0 {
   
   .footer-text-desktop {
     display: block;
-    line-height: 1;
   }
   
   .footer-text-mobile {
     display: none;
-    line-height: 1;
   }
   
-  .footer-text-mobile br {
-    line-height: 0;  /* 改行の高さを削減 */
-    display: block;
-    margin: -10px 0;  /* 負のマージンで行間を詰める */
-  }
-
   .main-content {
     gap: 80px;
     margin-top: 80px;
@@ -1449,7 +1484,7 @@ p.mb-0 {
   
   .hero-logo {
     height: auto;
-    aspect-ratio: 5.23;
+    aspect-ratio: 957/183;
   }
   
   .hero-text-container {
@@ -1751,7 +1786,7 @@ p.mb-0 {
   
   .footer-content {
     padding: 15px 100px 25px;
-    gap: 10px;
+    gap: 25px;
   }
   
   .footer-nav {
@@ -1897,8 +1932,8 @@ p.mb-0 {
 
   .about-text-mobile,
   .about-text-mobile p {
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 16px !important;
+    line-height: 35px !important;
   }
   
   .company-title {
@@ -1910,8 +1945,8 @@ p.mb-0 {
 
   .company-item-label,
   .company-item-value {
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 16px !important;
+    line-height: 35px !important;
   }
   
   /* works.html用 */
@@ -1922,8 +1957,8 @@ p.mb-0 {
 
   .introduction-text-mobile,
   .introduction-text-mobile p {
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 16px !important;
+    line-height: 35px !important;
   }
   
   .works-title {
@@ -1934,14 +1969,14 @@ p.mb-0 {
 
   .works-text-mobile,
   .works-text-mobile p {
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 16px !important;
+    line-height: 35px !important;
   }
   
   .works-item-label,
   .works-item-value {
-    font-size: 16px;
-    line-height: 35px;
+    font-size: 16px !important;
+    line-height: 35px !important;
   }
 
   .works-inner > .works-section {
